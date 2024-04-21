@@ -1,0 +1,39 @@
+
+
+                12
+              /     \
+            9       40
+          /  \       / \
+        10    7     28
+               \    / \
+                3   16  25
+
+pre-order traversal: middle, left, right
+
+Would appear as: 12 9 10 7 3 40 28 16 35
+
+
+////
+interface Traversal Strategy<T> {
+    List<T> traverse(Tree<T> tree)
+}
+
+class PreTraversal<T> implements Traversal Strategy<T> {
+    public List<T> traverse (Tree<T> tree) {
+        // make an empty list
+        // add tree.value()
+        // traverse left
+        // traverse right
+    }
+}
+
+
+
+////
+in-order traversal: left, middle, right
+
+Would appear as: 10 9 7 3 12 16 28 35 40
+
+post-order: left, right, middle
+
+Would appear as:
