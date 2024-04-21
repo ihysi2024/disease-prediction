@@ -1,0 +1,97 @@
+Durations
+1) Analysis
+Duration: amount of time
+Examples
+- 1 min
+- 1 week
+- 15 seconds
+- 3 ms
+- 1 year
+- 1 decade
+- 1 eon
+- 1 nanosecond
+- 1 picoseconds
+
+What can you do with them?
+- convert units
+    - 1 min = 60 sec
+- compare
+- add Durations
+- subtract
+- format
+
+Simplifying Assumptions
+- time resolution: seconds
+- lower bounds: 0
+- upper bounds: unspecified
+- Compare 1 eon with 1 s
+- Durations are unit-less
+
+Duration
+- observations
+    - method that looks into state (not the specific value but a high-level concept)
+    - boolean isZero()
+    - String format()
+    - long inSeconds()
+    - int compareTo(Duration)
+    - boolean equals (Object)
+    - int hashCode()
+
+- operations
+    - methods that manipulate data
+    - Duration add (Duration)
+    - Duration subtract (Duration)
+        - can be a void method if we're manipulating the input data
+        - can be Duration method if not
+
+
+
+** interface extends interfaces
+** classes implement interfaces
+
+Data Representations
+- hours, minutes, seconds -> long for hours, int for min, sec
+- "H:MM:SS" -> String (makes implementation difficult, not included)
+- 3-element -> List
+- seconds (can be done because HMSDuration hides its info with private fields & interface segregation)
+
+Abstract Duration (same code lives here)
+- HMSDuration
+- Compact Duration
+
+abstract class ADuration implements Duration{
+    public int compareTo(Duration o) {
+        ...
+    }
+    public boolean equals(object) {
+        ...
+    }
+    public int hashcode() {
+        ...
+    }
+
+}
+
+I wish I had a way to construct an object by name.
+Solution: Make a factory.
+
+Given the name of the object you want to make, create that object based on the name.
+
+Object create (String name) {
+    if ( name.equals("Bob")) {
+        return new Bob();
+    }
+
+    if ( name.equals("Steve")) {
+        return new Steve();
+    }
+}
+
+In ADuration: I want
+
+???? createDuration(String name);
+
+So plus is
+
+return createDuration(..., this.inSecond() + other.inSeconds());
+
