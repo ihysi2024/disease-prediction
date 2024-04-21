@@ -215,6 +215,7 @@ public class EventPanel extends JPanel implements IEventView {
 
   }
 
+
   /**
    * Get the user's input for the event name.
    *
@@ -301,6 +302,7 @@ public class EventPanel extends JPanel implements IEventView {
    */
   public void openEvent(String host) {
     this.updateUserListNoHostChange();
+
   }
 
   /**
@@ -437,8 +439,8 @@ public class EventPanel extends JPanel implements IEventView {
       eventMade = makeEvent(eventMap);
       return eventMade;
     }
-    catch (IllegalArgumentException e) {
-      // nothing should be done
+    catch (IllegalArgumentException ignored) {
+
     }
     if (eventMade != null) {
       System.out.println("Create event: ");
@@ -448,10 +450,8 @@ public class EventPanel extends JPanel implements IEventView {
   }
 
   /**
-   * Display the error that arises when the user tries to
-   * create an invalid event.
+   * Display create error.
    */
-
   public void displayCreateError() {
     int counter = 0;
     StringBuilder sb = new StringBuilder("");
@@ -508,11 +508,9 @@ public class EventPanel extends JPanel implements IEventView {
   }
 
   /**
-   * Display the error that arises when the user tries to remove an
-   * invalid event.
+   * Display error.
    * @param eventToRemove event to remove in a map.
    */
-
   public void displayRemoveError(Map<String, String[]> eventToRemove) {
     StringBuilder sb = new StringBuilder("");
     for (String key: eventToRemove.keySet()) {

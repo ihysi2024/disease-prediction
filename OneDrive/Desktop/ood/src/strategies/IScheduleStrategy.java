@@ -9,8 +9,8 @@ import model.IUser;
 import model.Time;
 
 /**
- * Represents a way of automatically creating a strategy depending on the user's
- * command line arguments.
+ * Represents a way of automatically creating a strategy depending
+ * on the user's command line arguments.
  */
 public interface IScheduleStrategy {
 
@@ -67,7 +67,7 @@ public interface IScheduleStrategy {
    * @param newMin final number of minutes to add to any event's end time
    * @param finalTimes list of times to schedule this event at
    */
-  void findTimeForEvent(int duration, Map<ITime, Integer> timeBetweenEvents, ITime startTime,
-                        int hours, int newHours, int date, Time.Day newDay,
-                        int newMin, List<ITime> finalTimes);
+  void findTimeForEvent(int duration, Map<ITime, Integer> timeBetweenEvents,
+                        ITime startTime, int hours,
+                   int newHours, int date, Time.Day newDay, int newMin, List<ITime> finalTimes);
 }

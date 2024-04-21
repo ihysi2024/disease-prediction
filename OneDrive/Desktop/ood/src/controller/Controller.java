@@ -124,6 +124,7 @@ public class Controller implements ViewFeatures {
   /**
    * Listen to user input and visualize the game.
    */
+  @Override
   public void goLaunchPlanner() {
     this.plannerView.addClickListener(this);
     this.plannerView.display(true);
@@ -176,9 +177,16 @@ public class Controller implements ViewFeatures {
   /**
    * Delegate to the view of the schedule to set who the current user is.
    */
+  public String setCurrentUser() {
+    return plannerView.setCurrentUser();
+  }
+
+  /*
   public void setCurrentUser() {
     plannerView.setCurrentUser();
-  }
+
+   */
+
 
   /**
    * Determine the event occurring at the given time. Useful for user mouse events in the
@@ -221,6 +229,7 @@ public class Controller implements ViewFeatures {
   /**
    * Delegate to the view of the planner to display the schedule of the user
    * with the same given name.
+   *
    * @param userName name to cross-reference with set of users in the system.
    */
   @Override
@@ -327,8 +336,7 @@ public class Controller implements ViewFeatures {
    * Delegate to the view of the schedule to save the calendar info to the planner system.
    */
   @Override
-  public void saveCalendars() {
-    String filePath = plannerView.saveCalendarInfo();
+  public void saveCalendars(String filePath) {
     if (!filePath.isEmpty()) {
       model.exportScheduleAsXML(filePath);
     }

@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Dimension;
 import java.util.List;
-
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -19,11 +18,12 @@ import model.IUser;
 import model.ReadOnlyPlanner;
 
 /**
- * Represents the panel for an event that can be automatically
- * scheduled.
+ * Schedule panel to represent the window where users can schedule an event.
  */
 
+
 public class SchedulePanel extends JPanel implements IScheduleView {
+
 
 
   /**
@@ -41,6 +41,7 @@ public class SchedulePanel extends JPanel implements IScheduleView {
   private final JTextField location;
 
   private final JTextField duration;
+
   private final JList<String> usersList;
 
   /**
@@ -50,6 +51,7 @@ public class SchedulePanel extends JPanel implements IScheduleView {
    * @param model desired model to represent calendar system
    */
   public SchedulePanel(ReadOnlyPlanner model) {
+
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     JLabel eventNameLabel = new JLabel("Event Name:");
@@ -199,7 +201,7 @@ public class SchedulePanel extends JPanel implements IScheduleView {
 
   @Override
   public void openScheduleView() {
-    // delegate to the view
+    // unused
   }
 
   /**

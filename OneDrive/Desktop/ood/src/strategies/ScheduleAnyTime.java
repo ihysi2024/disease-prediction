@@ -7,11 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import model.IEvent;
 import model.ITime;
 import model.IUser;
 import model.Time;
-
 
 /**
  * This variation of the schedule strategy allows the user to schedule an event at
@@ -53,8 +53,8 @@ public class ScheduleAnyTime implements IScheduleStrategy {
     for (int eventIdx = 0; eventIdx < orderedEvents.size() - 1; eventIdx++) {
       durationMin = 0;
 
-      durationMin = calculateDuration(orderedEvents.get(eventIdx).
-                      getEndTime().getDate().getDayIdx(),
+      durationMin = calculateDuration(orderedEvents.get(eventIdx).getEndTime().getDate().
+                      getDayIdx(),
               orderedEvents.get(eventIdx + 1).getStartTime().getDate().getDayIdx(),
               orderedEvents.get(eventIdx).getEndTime().getHours(),
               orderedEvents.get(eventIdx + 1).getStartTime().getHours(),
@@ -125,8 +125,8 @@ public class ScheduleAnyTime implements IScheduleStrategy {
   /**
    * Determine the right start and end time for an event of that duration.
    * @param duration amount of time the event lasts
-   * @param timeBetweenEvents mapping of when events end and how much
-   *                          free time there is after each one.
+   * @param timeBetweenEvents mapping of when events end and how much free time
+   *                          there is after each one.
    * @param startTime when the week time constraints start
    * @param hours number of hours to add to any event's end time
    * @param newHours number of final hours to add to this event's end time

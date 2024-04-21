@@ -67,6 +67,7 @@ public class PlannerPanel extends JPanel implements IPlannerView {
    */
   public PlannerPanel(ReadOnlyPlanner model) {
     this.model = Objects.requireNonNull(model);
+    //this.model = new NUPlanner(users, currentUserName);
     MouseListener listener = new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -130,14 +131,16 @@ public class PlannerPanel extends JPanel implements IPlannerView {
   /**
    * Sets the current user to what is selected in the appropriate button in the schedule view.
    */
-  public void setCurrentUser() {
+  public String setCurrentUser() {
     this.currentUser = null;
     for (IUser user : model.getUsers()) {
       if (user.getName().equals(
               Objects.requireNonNull(selectUserButton.getSelectedItem()).toString())) {
         this.currentUser = user;
+        return this.currentUser.getName();
       }
     }
+    return this.currentUser.getName();
   }
 
   /**
@@ -258,14 +261,13 @@ public class PlannerPanel extends JPanel implements IPlannerView {
                     Objects.requireNonNull(selectUserButton.getSelectedItem()).toString()));
     selectUserButton.addActionListener(evt -> features.setCurrentUser());
 
+    createEventButton.addActionListener(evt -> features.resetPanelView());
+    createEventButton.addActionListener(evt -> features.openEventView(this.getCurrentUser().
+            getName()));
 
-    createEventButton.addActionListener(evt ->
-            features.resetPanelView());
-    createEventButton.addActionListener(evt -> features.
-            openBlankEventView(this.getCurrentUser().getName()));
 
     addCalendar.addActionListener(evt -> features.addCalendar());
-    saveCalendar.addActionListener(evt -> features.saveCalendars());
+    saveCalendar.addActionListener(evt -> features.saveCalendars(this.saveCalendarInfo()));
 
     scheduleEventButton.addActionListener(evt -> features.openScheduleView());
     scheduleEventButton.addActionListener(evt ->
@@ -293,13 +295,16 @@ public class PlannerPanel extends JPanel implements IPlannerView {
     int[] eventStartCoords = this.timeToPaintLoc(startTime);
     int[] eventEndCoords = this.timeToPaintLoc(endTime);
 
+
     int rectHeight = eventEndCoords[1] - eventStartCoords[1];  // length of one-day event
 
     if (eventStartCoords[0] == eventEndCoords[0]) { // event starts + ends on same day
       g2d.fillRect(eventStartCoords[0], eventStartCoords[1], dayWidth, rectHeight);
+      //g2d.fillRect(0, 0, dayWidth, rectHeight);
+
     } else {
       // event goes to next week, changing end time to Sunday @23:59
-      if (eventEndCoords[0] < eventStartCoords[0]) {
+      if ((eventEndCoords[0] < eventStartCoords[0]) || (eventEndCoords[0] == 7)) {
         endTime = new Time(Time.Day.SATURDAY, 23, 59);
         int[] sunday2359 = this.timeToPaintLoc(endTime);
         eventEndCoords[0] = sunday2359[0];
@@ -363,6 +368,7 @@ public class PlannerPanel extends JPanel implements IPlannerView {
 
     x_y_coords[0] = weekColXCoord;
     x_y_coords[1] = weekColYCoord;
+
     return x_y_coords;
   }
 
@@ -489,6 +495,7 @@ public class PlannerPanel extends JPanel implements IPlannerView {
     }
     return "";
   }
+
 
   /**
    * Allowing user to select a folder where they will export the user schedules.

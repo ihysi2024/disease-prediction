@@ -2,7 +2,9 @@ package view;
 
 import java.util.Map;
 
+
 import javax.swing.JFrame;
+
 
 import controller.ViewFeatures;
 
@@ -47,7 +49,7 @@ public class EventView extends JFrame implements IEventView {
    * @param event event to visualize in the event panel.
    */
   public void populateEventContents(IEvent event) {
-    this.panel.populateEventContents(event);
+    panel.populateEventContents(event);
   }
 
   /**
@@ -142,17 +144,9 @@ public class EventView extends JFrame implements IEventView {
     this.setVisible(true);
   }
 
-  /**
-   * Display error in creating the event.
-   */
   public void displayCreateError() {
     panel.displayCreateError();
   }
-
-  /**
-   * Display error in removing the event.
-   * @param eventToRemove event to remove in a map.
-   */
 
   public void displayRemoveError(Map<String, String[]> eventToRemove) {
     panel.displayRemoveError(eventToRemove);
@@ -174,7 +168,6 @@ public class EventView extends JFrame implements IEventView {
   /**
    * Updates list of users in event view.
    */
-
   @Override
   public void updateUserList() {
     panel.updateUserList();
