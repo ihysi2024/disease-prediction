@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
+import model.allInterfaces.PlannerSystem;
 
 import static controller.UtilsXML.readXML;
 import static model.sunday.User.interpretXML;
@@ -28,7 +27,7 @@ public class NUPlanner implements PlannerSystem {
    * users cannot be added to the system by the inclusion of a set of users
    * instead of a list.
    */
-  private List<model.interfaces.IUser> users;
+  private List<model.allInterfaces.IUser> users;
 
   private String host;
 
@@ -37,12 +36,12 @@ public class NUPlanner implements PlannerSystem {
    *
    * @param users non-duplicate user list in the system
    */
-  public NUPlanner(List<model.interfaces.IUser> users, String host) {
+  public NUPlanner(List<model.allInterfaces.IUser> users, String host) {
     this.users = new ArrayList<>(users);
     this.host = host;
   }
 
-  public NUPlanner(List<model.interfaces.IUser> users) {
+  public NUPlanner(List<model.allInterfaces.IUser> users) {
     this.users = new ArrayList<>(users);
     this.host = "None";
   }
@@ -60,7 +59,7 @@ public class NUPlanner implements PlannerSystem {
    * @return a set of users
    */
 
-  public List<model.interfaces.IUser> getUsers() {
+  public List<model.allInterfaces.IUser> getUsers() {
     return this.users;
   }
 
@@ -83,11 +82,11 @@ public class NUPlanner implements PlannerSystem {
 
     // adding this user's events to each existing schedule
     int numUsers = this.users.size();
-    List<model.interfaces.IEvent> newUserEvents = this.users.get(numUsers - 1).getSchedule().getEvents();
+    List<model.allInterfaces.IEvent> newUserEvents = this.users.get(numUsers - 1).getSchedule().getEvents();
 
-    ArrayList<model.interfaces.IEvent> arrNewUserEvents = new ArrayList<>(newUserEvents);
+    ArrayList<model.allInterfaces.IEvent> arrNewUserEvents = new ArrayList<>(newUserEvents);
 
-    for (model.interfaces.IEvent eventToAdd : arrNewUserEvents) {
+    for (model.allInterfaces.IEvent eventToAdd : arrNewUserEvents) {
       this.addEventForRelevantUsers(eventToAdd);
     }
   }
@@ -99,7 +98,7 @@ public class NUPlanner implements PlannerSystem {
    * @return a list of this user's events
    */
   @Override
-  public List<model.interfaces.IEvent> retrieveUserEvents(model.interfaces.IUser user) {
+  public List<model.allInterfaces.IEvent> retrieveUserEvents(model.allInterfaces.IUser user) {
     System.out.println("num events: " + user.getSchedule().getEvents().size());
     return user.getSchedule().getEvents();
   }
@@ -109,7 +108,7 @@ public class NUPlanner implements PlannerSystem {
    * @param filePathToSave where to save the XML file
    */
   public void exportScheduleAsXML(String filePathToSave) {
-    for (model.interfaces.IUser user: this.users) {
+    for (model.allInterfaces.IUser user: this.users) {
       user.userSchedToXML(filePathToSave);
     }
   }
@@ -123,7 +122,7 @@ public class NUPlanner implements PlannerSystem {
    * @throws IllegalArgumentException if user doesn't exist or doesn't have a schedule
    */
   @Override
-  public model.interfaces.IEvent retrieveUserScheduleAtTime(model.interfaces.IUser user, ITime givenTime) {
+  public model.allInterfaces.IEvent retrieveUserScheduleAtTime(model.allInterfaces.IUser user, model.allInterfaces.ITime givenTime) {
     return user.getSchedule().eventOccurring(givenTime);
   }
 
@@ -132,8 +131,8 @@ public class NUPlanner implements PlannerSystem {
    *
    * @param eventToAdd event to add to the relevant user schedule
    */
-  public void addEventForRelevantUsers(model.interfaces.IEvent eventToAdd) {
-    for (model.interfaces.IUser currUser : this.users) {
+  public void addEventForRelevantUsers(model.allInterfaces.IEvent eventToAdd) {
+    for (model.allInterfaces.IUser currUser : this.users) {
       boolean eventAtTime = currUser.getSchedule().getEvents().contains(eventToAdd);
       if (eventToAdd.getUsers().contains(currUser.getName()) && !eventAtTime) {
         try {
@@ -154,7 +153,7 @@ public class NUPlanner implements PlannerSystem {
    * @param userToAdd user to add to Planner
    */
   @Override
-  public void addUser(model.interfaces.IUser userToAdd) {
+  public void addUser(model.allInterfaces.IUser userToAdd) {
     this.users.add(userToAdd);
   }
 
@@ -164,9 +163,9 @@ public class NUPlanner implements PlannerSystem {
    * @param newEvent what the previous event should be modified to
    * @throws IllegalArgumentException if user listed cannot attend the modified event
    **/
-  public void modifyEvent(model.interfaces.IEvent prevEvent, model.interfaces.IEvent newEvent) {
-    model.interfaces.IUser host = null;
-    for (model.interfaces.IUser user: this.users) {
+  public void modifyEvent(model.allInterfaces.IEvent prevEvent, model.allInterfaces.IEvent newEvent) {
+    model.allInterfaces.IUser host = null;
+    for (model.allInterfaces.IUser user: this.users) {
       if (user.getName().equals(prevEvent.getUsers().get(0))) {
         host = new User(user.getName(), user.getSchedule());
       }
@@ -198,14 +197,14 @@ public class NUPlanner implements PlannerSystem {
    * @param eventToRemove event to remove from planner system
    * @param userRemovingEvent user removing the event
    */
-  public void removeEventForRelevantUsers(model.interfaces.IEvent eventToRemove, model.interfaces.IUser userRemovingEvent) {
-    Iterator<model.interfaces.IUser> iterUsers = this.users.iterator();
+  public void removeEventForRelevantUsers(model.allInterfaces.IEvent eventToRemove, model.allInterfaces.IUser userRemovingEvent) {
+    Iterator<model.allInterfaces.IUser> iterUsers = this.users.iterator();
 
     String hostOfEvent = eventToRemove.getUsers().get(0);
 
     if (userRemovingEvent.getName().equals(hostOfEvent)) { // host removing event, remove for all
       while (iterUsers.hasNext()) {
-        model.interfaces.IUser currUser = iterUsers.next();
+        model.allInterfaces.IUser currUser = iterUsers.next();
         if (eventToRemove.getUsers().contains(currUser.getName())) {
           try {
             // remove the event from the current user's schedule
@@ -234,7 +233,7 @@ public class NUPlanner implements PlannerSystem {
    * @param userToRemove user being removed from the event
    */
   @Override
-  public void removeUserFromEventList(model.interfaces.IEvent event, model.interfaces.IUser userToRemove) {
+  public void removeUserFromEventList(model.allInterfaces.IEvent event, model.allInterfaces.IUser userToRemove) {
     // loop through all of the users
     // if the given event is part of their schedule, remove this user from their user list
     // can you just edit the actual event's user list??

@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.allInterfaces;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface ReadOnlyPlanner {
    * @return an event. return null if no events at that time
    * @throws IllegalArgumentException if user doesn't exist or doesn't have a schedule
    */
-  model.interfaces.IEvent retrieveUserScheduleAtTime(IUser user, ITime givenTime);
+  model.allInterfaces.IEvent retrieveUserScheduleAtTime(IUser user, ITime givenTime);
 
   /**
    * Retrieves the list of users in the planner system.

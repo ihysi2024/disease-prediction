@@ -1,10 +1,8 @@
 package model.saturday;
 
-import java.util.function.UnaryOperator;
-
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
+import model.allInterfaces.IUser;
 
 public class SaturdayUser implements IUser {
   @Override

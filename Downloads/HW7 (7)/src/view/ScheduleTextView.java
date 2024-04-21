@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
+import model.allInterfaces.PlannerSystem;
 import model.sunday.Time;
 
 /**

@@ -1,9 +1,9 @@
 package view;
 
 import controller.ViewFeatures;
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
 
 /**
  * Represents the interface for a planner view to be implemented through a panel

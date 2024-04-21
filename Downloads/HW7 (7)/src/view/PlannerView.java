@@ -4,11 +4,11 @@ package view;
 import javax.swing.*;
 
 import controller.ViewFeatures;
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
 
-import model.interfaces.IUser;
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
+import model.allInterfaces.ReadOnlyPlanner;
 
 /**
  * Represents the view for the planner system.

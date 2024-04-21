@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
 
 /**
  * Represents an event in a planner system. Main operations of an event are formatting itself
@@ -18,10 +18,10 @@ import model.interfaces.ITime;
  * <p> If the end time is 'before' the start time of the event, it is assumed that this means that
  * the event starts this week but ends in the following week. </p>
  */
-public class Event implements model.interfaces.IEvent {
+public class Event implements model.allInterfaces.IEvent {
   private final String eventName;
-  private final model.interfaces.ITime startTime;
-  private final model.interfaces.ITime endTime;
+  private final model.allInterfaces.ITime startTime;
+  private final model.allInterfaces.ITime endTime;
   private final boolean online;
   private final String location;
   private final List<String> users;
@@ -37,7 +37,7 @@ public class Event implements model.interfaces.IEvent {
    * @param location  physical location of an event
    * @param users     users invited to the event. first user in list is the host of the event
    */
-  public Event(String eventName, model.interfaces.ITime startTime, model.interfaces.ITime endTime, boolean online, String location,
+  public Event(String eventName, model.allInterfaces.ITime startTime, model.allInterfaces.ITime endTime, boolean online, String location,
                List<String> users) {
     if ((users == null) || (users.isEmpty())) {
       throw new IllegalArgumentException("Null list of invitees not allowed");
@@ -76,7 +76,7 @@ public class Event implements model.interfaces.IEvent {
    *
    * @return the event's start time
    */
-  public model.interfaces.ITime getStartTime() {
+  public model.allInterfaces.ITime getStartTime() {
     return this.startTime;
   }
 

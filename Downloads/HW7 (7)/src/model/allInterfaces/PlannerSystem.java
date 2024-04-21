@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.allInterfaces;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public interface PlannerSystem extends ReadOnlyPlanner {
    * @param eventToRemove event to remove from planner system
    * @param userRemovingEvent user removing the event
    */
-  void removeEventForRelevantUsers(model.interfaces.IEvent eventToRemove, IUser userRemovingEvent);
+  void removeEventForRelevantUsers(model.allInterfaces.IEvent eventToRemove, IUser userRemovingEvent);
 
   /**
    * Remove a user from the event list for every other person in planner system
@@ -42,7 +42,7 @@ public interface PlannerSystem extends ReadOnlyPlanner {
    * @param event event to updated in planner system
    * @param userToRemove user being removed from the event
    */
-  void removeUserFromEventList(model.interfaces.IEvent event, IUser userToRemove);
+  void removeUserFromEventList(model.allInterfaces.IEvent event, IUser userToRemove);
 
   /**
    * Events can only be modified if all users can attend the event.
@@ -50,7 +50,7 @@ public interface PlannerSystem extends ReadOnlyPlanner {
    * @param newEvent what the previous event should be modified to
    * @throws IllegalArgumentException if user listed cannot attend the modified event
    **/
-  void modifyEvent(model.interfaces.IEvent prevEvent, model.interfaces.IEvent newEvent);
+  void modifyEvent(model.allInterfaces.IEvent prevEvent, model.allInterfaces.IEvent newEvent);
 
   /**
    * Add events for the users listed in the event's invitee list.

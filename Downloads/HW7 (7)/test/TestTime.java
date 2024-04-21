@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import model.sunday.NUPlanner;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.PlannerSystem;
 import model.sunday.Time;
 import view.IScheduleTextView;
 import view.ScheduleTextView;

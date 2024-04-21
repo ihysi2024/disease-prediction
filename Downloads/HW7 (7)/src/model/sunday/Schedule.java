@@ -7,18 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
 
 /**
  * Represents a schedule in the planner system.
  */
 public class Schedule implements ISchedule {
-  private final List<model.interfaces.IEvent> events;
+  private final List<model.allInterfaces.IEvent> events;
 
 
-  public Schedule(List<model.interfaces.IEvent> events) {
+  public Schedule(List<model.allInterfaces.IEvent> events) {
     this.events = Objects.requireNonNull(events);
   }
 
@@ -30,9 +29,9 @@ public class Schedule implements ISchedule {
    * @throws IllegalArgumentException if event overlaps another event
    */
 
-  public void addEvent(model.interfaces.IEvent event) {
+  public void addEvent(model.allInterfaces.IEvent event) {
     int countOverlapping = 0;
-    for (model.interfaces.IEvent existingEvent: this.events) {
+    for (model.allInterfaces.IEvent existingEvent: this.events) {
       if (existingEvent.overlappingEvents(event)) {
         countOverlapping++;
       }
@@ -53,7 +52,7 @@ public class Schedule implements ISchedule {
    * @param otherEvent the event to be removed
    */
 
-  public void removeEvent(model.interfaces.IEvent otherEvent) {
+  public void removeEvent(model.allInterfaces.IEvent otherEvent) {
     this.events.removeIf(thisEvent -> thisEvent.equals(otherEvent));
   }
 
@@ -62,7 +61,7 @@ public class Schedule implements ISchedule {
    * allow the user to observe the events in their schedule.
    * @return the list of the schedule's events.
    */
-  public List<model.interfaces.IEvent> getEvents() {
+  public List<model.allInterfaces.IEvent> getEvents() {
     return this.events;
   }
 
@@ -71,8 +70,8 @@ public class Schedule implements ISchedule {
    *
    * @return a HashMap relating each day of the week to a list of events
    */
-  public Map<Time.Day, List<model.interfaces.IEvent>> dayToEventsMappping() {
-    HashMap<Time.Day, List<model.interfaces.IEvent>> dayToEvent = new LinkedHashMap<>();
+  public Map<Time.Day, List<model.allInterfaces.IEvent>> dayToEventsMappping() {
+    HashMap<Time.Day, List<model.allInterfaces.IEvent>> dayToEvent = new LinkedHashMap<>();
     dayToEvent.put(Time.Day.SUNDAY, new ArrayList<>());
     dayToEvent.put(Time.Day.MONDAY, new ArrayList<>());
     dayToEvent.put(Time.Day.TUESDAY, new ArrayList<>());
@@ -81,7 +80,7 @@ public class Schedule implements ISchedule {
     dayToEvent.put(Time.Day.FRIDAY, new ArrayList<>());
     dayToEvent.put(Time.Day.SATURDAY, new ArrayList<>());
 
-    for (model.interfaces.IEvent eventToSchedule: this.events) {
+    for (model.allInterfaces.IEvent eventToSchedule: this.events) {
       dayToEvent.get(eventToSchedule.getStartTime().getDate()).add(eventToSchedule);
     }
     return dayToEvent;
@@ -94,7 +93,7 @@ public class Schedule implements ISchedule {
    */
   public String scheduleToXMLFormat() {
     StringBuilder scheduleXML = new StringBuilder();
-    for (model.interfaces.IEvent event: this.events) {
+    for (model.allInterfaces.IEvent event: this.events) {
       scheduleXML.append(event.eventToXMLFormat() + "\n");
     }
     return scheduleXML.toString();
@@ -105,7 +104,7 @@ public class Schedule implements ISchedule {
    * @param time the time to search for events occurring during
    * @return the event at the given time. returns null if no event is occurring
    */
-  public model.interfaces.IEvent eventOccurring(model.interfaces.ITime time) {
+  public model.allInterfaces.IEvent eventOccurring(model.allInterfaces.ITime time) {
 
     for (IEvent event: this.events) {
       ITime tempEndTime = event.getEndTime();

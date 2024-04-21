@@ -1,10 +1,7 @@
-package model.interfaces;
+package model.allInterfaces;
 
 import java.util.HashMap;
 import java.util.List;
-
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
 
 /**
  * Represents a user of the planner system. A user has a schedule that they can interact with.
@@ -40,7 +37,7 @@ public interface IUser {
    * @param filePath path where XML is located
    * @return a list of events
    */
-  static List<model.interfaces.IEvent> interpretXML(String filePath) {
+  static List<model.allInterfaces.IEvent> interpretXML(String filePath) {
     return null;
   }
 
@@ -50,7 +47,7 @@ public interface IUser {
    * @param eventToMake HashMap of attribute name->list of values to convert to events.
    * @return the event corresponding to the HashMap
    */
-  static model.interfaces.IEvent makeEvent(HashMap<String, String[]> eventToMake) {
+  static model.allInterfaces.IEvent makeEvent(HashMap<String, String[]> eventToMake) {
     return null;
   }
 
@@ -58,7 +55,7 @@ public interface IUser {
    * Adds an event to a user's schedule.
    * @param event event to add
    */
-  void addEventForUser(model.interfaces.IEvent event);
+  void addEventForUser(model.allInterfaces.IEvent event);
 
   /**
    * Removes an event from a user's schedule.

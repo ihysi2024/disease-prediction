@@ -14,9 +14,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import controller.ViewFeatures;
 
-import model.interfaces.IUser;
+import model.allInterfaces.IUser;
 
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.ReadOnlyPlanner;
 
 /**
  * Represents the panel for an event that can be automatically

@@ -3,8 +3,8 @@ package controller;
 
 import java.util.Map;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
 
 /**
  * Represents the features that the user is allowed to use to interact

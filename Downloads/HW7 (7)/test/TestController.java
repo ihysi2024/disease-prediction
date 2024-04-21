@@ -10,10 +10,10 @@ import java.util.Map;
 
 import controller.Controller;
 import model.sunday.Event;
-import model.interfaces.IEvent;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
 import model.sunday.NUPlanner;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import view.IEventView;

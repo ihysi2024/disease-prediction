@@ -26,10 +26,10 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.ViewFeatures;
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
+import model.allInterfaces.ReadOnlyPlanner;
 import model.sunday.Schedule;
 import model.sunday.User;
 

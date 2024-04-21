@@ -2,14 +2,14 @@ package model.saturday;
 
 import java.util.List;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
 import model.sunday.Event;
 
 public class SaturdayEvent extends Event implements IEvent {
 
-  public SaturdayEvent(String eventName, model.interfaces.ITime startTime,
-                       model.interfaces.ITime endTime, boolean online, String location,
+  public SaturdayEvent(String eventName, model.allInterfaces.ITime startTime,
+                       model.allInterfaces.ITime endTime, boolean online, String location,
                        List<String> users) {
     super(eventName, startTime, endTime, online, location, users);
   }

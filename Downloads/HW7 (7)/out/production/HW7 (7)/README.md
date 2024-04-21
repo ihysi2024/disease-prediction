@@ -224,3 +224,28 @@ functionality, as well as correctly ordering the panel to the view.
 
 We did not send our code to anyone as we were not asked to be the providers for any 
 customer. The code therefore remains unchanged. 
+
+*****HW9******
+
+1. Toggle Host Color
+
+A Toggle Strategy interface and class implementation was added. This class implementation
+takes in two different colors (a color to paint the host and a color to paint the invitee)
+as well as the current user (host) of the panel, the panel being viewed, and a DrawEvent 
+instance. The only method that this strategy implements is painting the host's events the 
+"host" color and events hosted by another user the "invitee" color. 
+
+The paintEvent, paintFullDay, timeToPaintLoc, and minLoc methods originally 
+found in PlannerPanel were extracted in their own interface and class implementation
+(IDrawEvent and DrawEvent). The only change to the methods was pasing a JPanel
+"host" panel and color that the event being drawn should be. This was to allow differentiation
+in colors being used for the Toggle strategy, and to ensure that the events were all 
+being drawn to the same panel. 
+
+The controller now includes a "toggle" marker, which begins as false for the system. 
+Once the user clicks the "Toggle Host Color" button on the Planner Panel, the command callback 
+design calls the toggleColor() method in the controller, which switches the "toggle" marker
+and delegates colors to the Toggle Strategy's host and invitee color. If the toggle marker is 
+still false, both the host and the invitee colors are the same. If the toggle marker is true,
+the colors are different. 
+

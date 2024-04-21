@@ -1,7 +1,7 @@
 package model.saturday;
 
-import model.ITime;
-import model.Time;
+import model.sunday.Time;
+import model.allInterfaces.ITime;
 
 // time can stay the same as regular time
 public class SaturdayTime extends Time implements ITime {
@@ -21,7 +21,7 @@ public class SaturdayTime extends Time implements ITime {
   }
 
   @Override
-  public model.Time.Day getDate() {
+  public model.sunday.Time.Day getDate() {
     return super.getDate();
   }
 

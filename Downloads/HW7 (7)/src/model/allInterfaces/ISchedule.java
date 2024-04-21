@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.allInterfaces;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import model.sunday.Time;
  */
 public interface ISchedule {
 
-  void addEvent(model.interfaces.IEvent event);
+  void addEvent(model.allInterfaces.IEvent event);
 
   /**
    * Remove event from this schedule. Only removes an event that exactly matches an event
@@ -20,21 +20,21 @@ public interface ISchedule {
    * @param otherEvent the event to be removed
    * @throws IllegalArgumentException if event doesn't exist
    */
-  void removeEvent(model.interfaces.IEvent otherEvent);
+  void removeEvent(model.allInterfaces.IEvent otherEvent);
 
   /**
    * Observes the events present in a given schedule. Necessary to
    * allow the user to observe the events in their schedule.
    * @return the list of the schedule's events.
    */
-  List<model.interfaces.IEvent> getEvents();
+  List<model.allInterfaces.IEvent> getEvents();
 
   /**
    * Creating an association between day of the week and events occurring that day.
    *
    * @return a HashMap relating each day of the week to a list of events
    */
-  Map<Time.Day, List<model.interfaces.IEvent>> dayToEventsMappping();
+  Map<Time.Day, List<model.allInterfaces.IEvent>> dayToEventsMappping();
 
 
   /**

@@ -4,8 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
 import model.sunday.Time;
 
 import static model.sunday.Time.indexToTime;

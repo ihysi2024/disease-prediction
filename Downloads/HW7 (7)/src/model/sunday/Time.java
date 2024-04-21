@@ -2,7 +2,7 @@ package model.sunday;
 
 import java.util.List;
 
-import model.interfaces.ITime;
+import model.allInterfaces.ITime;
 
 /**
  * Represents a time, which includes a day of the week and the time up to minute granularity.
@@ -10,7 +10,7 @@ import model.interfaces.ITime;
  * day of a month/year. Some of the main operations are comparing two times and converting
  * between Time and String (and vice versa).
  */
-public class Time implements model.interfaces.ITime {
+public class Time implements model.allInterfaces.ITime {
 
   private final int hours;
   private final int minutes;

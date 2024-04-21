@@ -1,6 +1,4 @@
-package model.interfaces;
-
-import model.sunday.Time;
+package model.allInterfaces;
 
 /**
  * Represents a time, which includes a day of the week and the time up to minute granularity.
@@ -11,28 +9,32 @@ import model.sunday.Time;
 public interface ITime {
   /**
    * Getting this Time's hours.
+   *
    * @return this Time's hours.
    */
   int getHours();
 
   /**
    * Getting this Time's minutes.
+   *
    * @return this Time's minutes.
    */
   int getMinutes();
 
   /**
    * Getting this Time's day of the week.
+   *
    * @return this Time's day of the week.
    */
   model.sunday.Time.Day getDate();
 
   /**
    * compare two times and determine what their relation is to each other.
+   *
    * @param refTime other time to compare to
    * @return 0 if they are the same time
-   *        -1 if this time comes before that time
-   *         1 if this time comes after that time
+   * -1 if this time comes before that time
+   * 1 if this time comes after that time
    */
   int compareTimes(ITime refTime);
 
@@ -44,5 +46,5 @@ public interface ITime {
    * @return # of minutes since midnight until beginning of event
    */
   int minutesSinceMidnight();
-
 }
+
