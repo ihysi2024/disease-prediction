@@ -3,9 +3,9 @@ package strategies;
 import java.util.List;
 import java.util.Map;
 
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
 import model.sunday.Time;
 
 /**

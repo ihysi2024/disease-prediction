@@ -70,7 +70,7 @@ public class TestTime {
     Assert.assertEquals(textV.timeToString(new Time(Time.Day.MONDAY, 1, 12)),
             textV.timeToString(Time.stringToTime("MONDAY", "0112")));
     Assert.assertEquals(textV.timeToString(new Time(Time.Day.THURSDAY, 23, 59)),
-           textV.timeToString( Time.stringToTime("thursday", "2359")));
+            textV.timeToString( Time.stringToTime("thursday", "2359")));
 
     Assert.assertEquals("Monday: 05:00", textV.timeToString(this.monFiveAM));
     Assert.assertEquals("Saturday: 13:00", textV.timeToString(this.satOnePMTwo));

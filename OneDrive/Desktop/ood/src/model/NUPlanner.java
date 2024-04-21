@@ -60,7 +60,8 @@ public class NUPlanner implements PlannerSystem {
   }
 
   /**
-   * Returns the current host whose planner is open.
+   * Grabs the current host of the system.
+   *
    * @return the current host whose planner is open
    */
   public String getHost() {
@@ -69,9 +70,11 @@ public class NUPlanner implements PlannerSystem {
 
   /**
    * Adds a user to the planner system with the schedule provided in the file path's XML.
+   *
    * @param filePath file path to read XML schedule from
    */
-
+  // how do we know what user's schedule we're adding this to?? how are we making a new user??
+  //
   @Override
   public void importScheduleFromXML(String filePath) {
     this.users.add(interpretXML(readXML(filePath))); // adding new user to planner system
@@ -79,12 +82,15 @@ public class NUPlanner implements PlannerSystem {
     // adding this user's events to each existing schedule
     int numUsers = this.users.size();
     List<IEvent> newUserEvents = this.users.get(numUsers - 1).getSchedule().getEvents();
-
     ArrayList<IEvent> arrNewUserEvents = new ArrayList<>(newUserEvents);
 
     for (IEvent eventToAdd : arrNewUserEvents) {
+      System.out.println("adding this event: " + eventToAdd.getEventName());
+      System.out.println("adding this event first user: " + eventToAdd.getUsers().get(0));
+
       this.addEventForRelevantUsers(eventToAdd);
     }
+
   }
 
   /**
@@ -95,7 +101,7 @@ public class NUPlanner implements PlannerSystem {
    */
   @Override
   public List<IEvent> retrieveUserEvents(IUser user) {
-    System.out.println("num events: " + user.getSchedule().getEvents().size());
+    // System.out.println("num events: " + user.getSchedule().getEvents().size());
     return user.getSchedule().getEvents();
   }
 

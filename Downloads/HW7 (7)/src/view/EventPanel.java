@@ -22,11 +22,11 @@ import javax.swing.JOptionPane;
 import javax.swing.event.MouseInputAdapter;
 
 import controller.ViewFeatures;
-import model.interfaces.IEvent;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
 import model.sunday.NUPlanner;
-import model.interfaces.PlannerSystem;
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.PlannerSystem;
+import model.allInterfaces.ReadOnlyPlanner;
 import model.sunday.Time;
 
 import static model.sunday.User.makeEvent;

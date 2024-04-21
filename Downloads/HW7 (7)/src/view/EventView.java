@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 
 import controller.ViewFeatures;
 
-import model.interfaces.IEvent;
+import model.allInterfaces.IEvent;
 
-import model.interfaces.IUser;
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.IUser;
+import model.allInterfaces.ReadOnlyPlanner;
 
 /**
  * Frame for the event pop-out window, where users will be able to see the functionality

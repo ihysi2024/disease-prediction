@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 
-
 /**
  * Represents the observational interface for the calendar system that
  * the user interacts with through the view and controller.
@@ -20,13 +19,14 @@ public interface ReadOnlyPlanner {
   IEvent retrieveUserScheduleAtTime(IUser user, ITime givenTime);
 
   /**
-   * Retrieves the list of users in the planner system.
+   * Retrieves the set of users in the planner system.
    */
   List<IUser> getUsers();
 
   /**
-   * Returns the current host whose planner is open.
-   * @return the current host whose planner is open
+   * Get the host of the system.
+   *
+   * @return the current host whose planner is open.
    */
   String getHost();
 

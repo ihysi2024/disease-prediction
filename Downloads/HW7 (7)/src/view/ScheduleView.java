@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import controller.ViewFeatures;
 
-import model.interfaces.ReadOnlyPlanner;
+import model.allInterfaces.ReadOnlyPlanner;
 
 /**
  * Represents the view of the event panel that allows the user to automatically.

@@ -2,10 +2,10 @@ package view;
 
 import java.io.IOException;
 
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
+import model.allInterfaces.ITime;
+import model.allInterfaces.IUser;
 
 /**
  * Represents the view of the planner system.

@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +9,6 @@ import java.util.List;
 
 import model.Event;
 import model.IEvent;
-import model.ISchedule;
 import model.IUser;
 import model.NUPlanner;
 import model.PlannerSystem;
@@ -18,21 +18,22 @@ import model.User;
 import view.IScheduleTextView;
 import view.ScheduleTextView;
 
+import static controller.UtilsXML.readXML;
+import static model.User.interpretXML;
+
 /**
- * Class to test functionality of Schedule class.
+ * Class to test functionality of NUPlannerSystem.
  */
 public class TestSchedule {
   private IEvent morningLec;
-  private IEvent morningLecOverlapping;
-  private IEvent morningLecSameTime;
-  private IEvent morningLecEndTime;
-
+  private IEvent morningSnack;
   private IEvent afternoonLec;
   private IEvent officeHours;
-
   private IEvent sleep;
-
-  private ISchedule emptySchedule;
+  private IUser profLuciaUser;
+  private IUser studentAnonUser;
+  private IUser chatUser;
+  private PlannerSystem plannerSystem;
   private IScheduleTextView textV;
 
   @Before
@@ -40,21 +41,10 @@ public class TestSchedule {
     PlannerSystem modelForTextView = new NUPlanner(new ArrayList<>(), "None");
     this.textV = new ScheduleTextView(modelForTextView, new StringBuilder());
 
-    this.emptySchedule = new Schedule(new ArrayList<>());
-
-    IUser profLuciaUser = new User("Prof Lucia", emptySchedule);
-    IUser studentAnonUser = new User("Student Anon", emptySchedule);
-    IUser chatUser = new User("Chat", emptySchedule);
-
-    IEvent newMorningLec = new Event("CS3500 Morning Lecture",
-            new Time(Time.Day.TUESDAY, 13, 35),
-            new Time(Time.Day.TUESDAY, 16, 00),
-            false,
-            "Churchill Hall 101",
-            new ArrayList<>(Arrays.asList("Prof. Lucia",
-                    "Student Anon",
-                    "Chat")));
-
+    Schedule emptySchedule = new Schedule(new ArrayList<>());
+    this.profLuciaUser = new User("Prof Lucia", emptySchedule);
+    this.studentAnonUser = new User("Student Anon", emptySchedule);
+    this.chatUser = new User("Chat", emptySchedule);
     this.morningLec = new Event("CS3500 Morning Lecture",
             new Time( Time.Day.TUESDAY, 9, 50),
             new Time(Time.Day.TUESDAY, 11, 30),
@@ -64,8 +54,43 @@ public class TestSchedule {
                     "Student Anon",
                     "Chat")));
 
+    Event newMorningLec = new Event("CS3500 Morning Lecture",
+            new Time(Time.Day.TUESDAY, 13, 35),
+            new Time(Time.Day.TUESDAY, 16, 00),
+            false,
+            "Churchill Hall 101",
+            new ArrayList<>(Arrays.asList("Prof. Lucia",
+                    "Student Anon",
+                    "Chat")));
+
     // same time as the morning lecture
-    this.morningLecSameTime = new Event("same time morning lecture",
+    Event morningLecSameTime = new Event("same time morning lecture",
+            new Time(Time.Day.TUESDAY, 9, 50),
+            new Time(Time.Day.TUESDAY, 11, 30),
+            false,
+            "Churchill Hall 101",
+            new ArrayList<>(Arrays.asList(
+                    "Student Anon")));
+    // overlapping time as the morning lecture
+    Event morningLecOverlapping = new Event("overlapping morning lecture ",
+            new Time(Time.Day.TUESDAY, 8, 30),
+            new Time(Time.Day.TUESDAY, 10, 30),
+            false,
+            "Churchill Hall 101",
+            new ArrayList<>(Arrays.asList("Prof. Lucia",
+                    "Student Anon",
+                    "Chat")));
+    // start time same as end time of morning lecture
+    Event morningLecEndTime = new Event("same start time as end time",
+            new Time(Time.Day.TUESDAY, 11, 30),
+            new Time(Time.Day.TUESDAY, 12, 15),
+            false,
+            "Churchill Hall 101",
+            new ArrayList<>(Arrays.asList("Prof. Lucia",
+                    "Student Anon",
+                    "Chat")));
+    // same time as the morning lecture
+    morningLecSameTime = new Event("same time morning lecture",
             new Time( Time.Day.TUESDAY, 9, 50),
             new Time(Time.Day.TUESDAY, 11, 30),
             false,
@@ -73,9 +98,8 @@ public class TestSchedule {
             new ArrayList<>(Arrays.asList("Prof. Lucia",
                     "Student Anon",
                     "Chat")));
-
     // overlapping time as the morning lecture
-    this.morningLecOverlapping = new Event("overlapping morning lecture ",
+    morningLecOverlapping = new Event("overlapping morning lecture ",
             new Time( Time.Day.TUESDAY, 8, 30),
             new Time(Time.Day.TUESDAY, 10, 30),
             false,
@@ -83,9 +107,8 @@ public class TestSchedule {
             new ArrayList<>(Arrays.asList("Prof. Lucia",
                     "Student Anon",
                     "Chat")));
-
     // start time same as end time of morning lecture
-    this.morningLecEndTime = new Event("same start time as end time",
+    morningLecEndTime = new Event("same start time as end time",
             new Time( Time.Day.TUESDAY, 11, 30),
             new Time(Time.Day.TUESDAY, 12, 15),
             false,
@@ -93,7 +116,6 @@ public class TestSchedule {
             new ArrayList<>(Arrays.asList("Prof. Lucia",
                     "Student Anon",
                     "Chat")));
-
     this.afternoonLec = new Event("CS3500 Afternoon Lecture",
             new Time(Time.Day.TUESDAY, 13, 35),
             new Time(Time.Day.TUESDAY, 15, 15),
@@ -101,260 +123,257 @@ public class TestSchedule {
             "Churchill Hall 101",
             new ArrayList<>(Arrays.asList("Prof. Lucia",
                     "Chat")));
-
     this.sleep = new Event("Sleep",
             new Time(Time.Day.FRIDAY, 18, 0),
             new Time(Time.Day.SUNDAY, 12, 0),
             true,
             "Home",
             new ArrayList<>(Arrays.asList("Prof. Lucia")));
-
     Schedule luciaSchedule = new Schedule(new ArrayList<>(Arrays.asList(morningLec, afternoonLec,
             sleep)));
     Schedule studentAnonSchedule = new Schedule(new ArrayList<>(Arrays.asList(morningLec)));
     Schedule chatSchedule = new Schedule(new ArrayList<>(Arrays.asList(morningLec, afternoonLec)));
-
-    profLuciaUser = new User("Prof. Lucia", luciaSchedule);
-    studentAnonUser = new User("Student Anon", studentAnonSchedule);
-    chatUser = new User("Chat", chatSchedule);
-
-    Event morningSnack = new Event("snack",
-            new Time(Time.Day.TUESDAY, 11, 30),
-            new Time(Time.Day.TUESDAY, 11, 45),
+    this.profLuciaUser = new User("Prof. Lucia", luciaSchedule);
+    this.studentAnonUser = new User("Student Anon", studentAnonSchedule);
+    this.chatUser = new User("Chat", chatSchedule);
+    this.morningSnack = new Event("snack",
+            new Time(Time.Day.TUESDAY, 8, 30),
+            new Time(Time.Day.TUESDAY, 8, 45),
             false,
             "Churchill Hall 101",
             List.of("Student Anon"));
-
     this.officeHours = new Event("office hours",
-            new Time(Time.Day.MONDAY, 12, 01),
-            new Time(Time.Day.MONDAY, 12, 30),
+            new Time(Time.Day.THURSDAY, 15, 15),
+            new Time(Time.Day.THURSDAY, 16, 30),
             false,
             "Churchill Hall 101",
             List.of("Student Anon",
                     "Prof. Lucia"));
-
+    Event movie = new Event("movie",
+            new Time(Time.Day.FRIDAY, 21, 15),
+            new Time(Time.Day.FRIDAY, 23, 30),
+            true,
+            "home",
+            List.of("Student Anon"));
     List<IUser> users = new ArrayList<>();
-    users.add(profLuciaUser);
-    users.add(studentAnonUser);
-    users.add(chatUser);
-    NUPlanner plannerSystem = new NUPlanner(users, "Prof. Lucia");
+    users.add(this.profLuciaUser);
+    users.add(this.studentAnonUser);
+    users.add(this.chatUser);
+    this.plannerSystem = new NUPlanner(users, "Prof. Lucia");
   }
 
   /**
-   * Test observational methods - getEvents.
+   * Test the observational methods - getUsers().
    */
   @Test
-  public void testGetEvents() {
-    Assert.assertEquals(List.of(), emptySchedule.getEvents());
-    emptySchedule.addEvent(this.morningLec);
-    Assert.assertEquals(List.of(this.morningLec), emptySchedule.getEvents());
+  public void testObservationalMethods() {
+    List<IUser> usersCompare = new ArrayList<>();
+    usersCompare.add(this.profLuciaUser);
+    usersCompare.add(this.studentAnonUser);
+    usersCompare.add(this.chatUser);
+    Assert.assertEquals(3, this.plannerSystem.getUsers().size());
+    Assert.assertEquals(usersCompare, this.plannerSystem.getUsers());
   }
 
   /**
-   * Test that an event can be correctly added to a schedule.
+   * Test that a schedule can be correctly exported as an XML.
    */
+  @Test
+  public void testExportScheduleAsXML() {
+    plannerSystem.exportScheduleAsXML("src/controller/");
+    Document xmlDoc1 = readXML("src/controller/Prof. Lucia_schedule.xml");
+    IUser lucia = interpretXML(xmlDoc1);
+    // ensure the correct events are included in the right order and nothing else
+    Assert.assertEquals(textV.eventToString(this.morningLec),
+            textV.eventToString(lucia.getSchedule().getEvents().get(0)));
+    Assert.assertEquals(textV.eventToString(this.afternoonLec),
+            textV.eventToString(lucia.getSchedule().getEvents().get(1)));
+    Assert.assertEquals(textV.eventToString(this.sleep),
+            textV.eventToString(lucia.getSchedule().getEvents().get(2)));
+    Assert.assertEquals(3, lucia.getSchedule().getEvents().size());
+    Document xmlDoc2 = readXML("src/controller/Chat_schedule.xml");
+    IUser chat = interpretXML(xmlDoc2);
+    // ensure the correct events are included in the right order and nothing else
+    Assert.assertEquals(textV.eventToString(this.morningLec),
+            textV.eventToString(chat.getSchedule().getEvents().get(0)));
+    Assert.assertEquals(textV.eventToString(this.afternoonLec),
+            textV.eventToString(chat.getSchedule().getEvents().get(1)));
+    Assert.assertEquals(2, chat.getSchedule().getEvents().size());
+    Document xmlDoc3 = readXML("src/controller/Student Anon_schedule.xml");
+    IUser studentAnon = interpretXML(xmlDoc3);
+    // ensure the correct events are included in the right order and nothing else
+    Assert.assertEquals(textV.eventToString(this.morningLec),
+            textV.eventToString(studentAnon.getSchedule().getEvents().get(0)));
+    Assert.assertEquals(textV.eventToString(this.afternoonLec),
+            textV.eventToString(studentAnon.getSchedule().getEvents().get(1)));
+    Assert.assertEquals(2, studentAnon.getSchedule().getEvents().size());
+  }
+
+  /**
+   * Test that a user can retrieve a set of events occurring at a certain time correctly.
+   */
+  @Test
+  public void testRetrieveUserScheduleAtTime() {
+    // event starting at the given time
+    Assert.assertEquals(this.afternoonLec,
+            this.plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 13, 35)));
+    // event starting before the given time but ending after
+    Assert.assertEquals(this.afternoonLec,
+            this.plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 14, 15)));
+    // no event occurring at the time
+    Assert.assertNull(this.plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+            new Time(Time.Day.THURSDAY, 14, 15)));
+    plannerSystem.addEventForRelevantUsers(this.officeHours);
+    // an event starting at that time and ending at that time
+    Assert.assertEquals(this.afternoonLec,
+            this.plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 15, 15)));
+  }
+
   @Test
   public void testAddEvent() {
-    // starting schedule - no events yet
-    Assert.assertEquals(0, emptySchedule.getEvents().size());
-    // add a valid event
-    emptySchedule.addEvent(this.morningLec);
-    Assert.assertEquals(1, emptySchedule.getEvents().size());
-
-    // adding class at the same time or overlapping time
-    Assert.assertThrows(IllegalArgumentException.class, () ->
-            emptySchedule.addEvent(this.morningLecSameTime));
-    Assert.assertThrows(IllegalArgumentException.class, () ->
-            emptySchedule.addEvent(this.morningLecOverlapping));
-
-    // adding class that starts when previous class ends
-    emptySchedule.addEvent(this.morningLecEndTime);
-    Assert.assertEquals(2, emptySchedule.getEvents().size());
-    emptySchedule.addEvent(this.afternoonLec);
-    Assert.assertEquals(3, emptySchedule.getEvents().size());
+    Event nap = new Event("nap",
+            new Time(Time.Day.TUESDAY, 13, 35),
+            new Time(Time.Day.TUESDAY, 14, 30 ),
+            false,
+            "Churchill Hall 101",
+            List.of("Prof. Lucia", "Chat"));
+    plannerSystem.addEventForRelevantUsers(this.officeHours);
+    Assert.assertTrue(this.profLuciaUser.getSchedule().getEvents().contains(this.officeHours));
+    Assert.assertTrue(this.studentAnonUser.getSchedule().getEvents().contains(this.officeHours));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(this.officeHours));
+    // add another event
+    plannerSystem.addEventForRelevantUsers(this.morningSnack);
+    Assert.assertFalse(this.profLuciaUser.getSchedule().getEvents().contains(this.morningSnack));
+    Assert.assertTrue(this.studentAnonUser.getSchedule().getEvents().contains(this.morningSnack));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(this.morningSnack));
+    // add an event that coincides with an existing event
+    plannerSystem.addEventForRelevantUsers(nap);
+    Assert.assertFalse(this.profLuciaUser.getSchedule().getEvents().contains(nap));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(nap));
+    Assert.assertTrue(this.profLuciaUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertTrue(this.chatUser.getSchedule().getEvents().contains(this.afternoonLec));
   }
 
   /**
-   * Test removing an event.
+   * Test to determine if a user can modify events correctly
+   * through the planner system.
+   */
+  @Test
+  public void testModifyEvent() {
+    Event newOfficeHours = new Event("office hours",
+            new Time(Time.Day.WEDNESDAY, 15, 15),
+            new Time(Time.Day.WEDNESDAY, 16, 30),
+            false,
+            "Churchill Hall 101",
+            List.of("Student Anon",
+                    "Prof. Lucia"));
+    Event newMorningLec = new Event("morning lecture",
+            new Time(Time.Day.TUESDAY, 9, 50),
+            new Time(Time.Day.TUESDAY, 10, 50),
+            false,
+            "Churchill Hall 101",
+            List.of("Prof. Lucia", "Chat"));
+    Event tryAgainMorning = new Event("another morning lecture",
+            new Time(Time.Day.TUESDAY, 10, 00),
+            new Time(Time.Day.TUESDAY, 10, 50),
+            false,
+            "Churchill Hall 101",
+            List.of("Prof. Lucia", "Chat"));
+    Event nap = new Event("nap",
+            new Time(Time.Day.TUESDAY, 13, 35),
+            new Time(Time.Day.TUESDAY, 14, 30 ),
+            false,
+            "Churchill Hall 101",
+            List.of("Prof. Lucia", "Chat"));
+    Event run = new Event("go for run",
+            new Time(Time.Day.TUESDAY, 9, 50),
+            new Time(Time.Day.TUESDAY, 10, 50),
+            false,
+            "centennial",
+            List.of("Chat"));
+    // change the time of a current event where it doesn't coincide with any other events
+    plannerSystem.modifyEvent(this.officeHours, newOfficeHours);
+    Assert.assertEquals(newOfficeHours,
+            plannerSystem.retrieveUserScheduleAtTime(studentAnonUser,
+                    new Time(Time.Day.WEDNESDAY, 15, 15)));
+    Assert.assertEquals(newOfficeHours,
+            plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.WEDNESDAY, 15, 15)));
+    // change users invited to the event, name and time of event
+    plannerSystem.modifyEvent(this.morningLec, newMorningLec);
+    Assert.assertEquals(null,
+            plannerSystem.retrieveUserScheduleAtTime(studentAnonUser,
+                    new Time(Time.Day.TUESDAY, 9, 50)));
+
+    Assert.assertEquals(newMorningLec,
+            plannerSystem.retrieveUserScheduleAtTime(chatUser,
+                    new Time(Time.Day.TUESDAY, 9, 50)));
+    Assert.assertEquals(newMorningLec,
+            plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 9, 50)));
+    // users have removed the old event and have the new event
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(this.officeHours));
+    Assert.assertFalse(studentAnonUser.getSchedule().getEvents().contains(this.officeHours));
+    Assert.assertFalse(studentAnonUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(chatUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(this.morningLec));
+    // Try to modify the same event that we just changed - doesn't exist, throws an exception
+    plannerSystem.modifyEvent(this.morningLec, tryAgainMorning);
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(chatUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(tryAgainMorning));
+    Assert.assertFalse(chatUser.getSchedule().getEvents().contains(tryAgainMorning));
+
+    // try to modify an event with another event occurring at the same time as an existing event
+    plannerSystem.modifyEvent(this.morningLec, nap);
+    Assert.assertEquals(this.afternoonLec,
+            plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 13, 35)));
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(nap));
+    Assert.assertFalse(chatUser.getSchedule().getEvents().contains(nap));
+    Assert.assertTrue(profLuciaUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertTrue(chatUser.getSchedule().getEvents().contains(this.afternoonLec));
+    // try to modify an event with an event that has a different host
+    // events should remain unchanged
+    plannerSystem.modifyEvent(newMorningLec, run);
+
+    Assert.assertEquals(newMorningLec,
+            plannerSystem.retrieveUserScheduleAtTime(profLuciaUser,
+                    new Time(Time.Day.TUESDAY, 9, 50)));
+    Assert.assertEquals(newMorningLec,
+            plannerSystem.retrieveUserScheduleAtTime(chatUser,
+                    new Time(Time.Day.TUESDAY, 9, 50)));
+
+    Assert.assertFalse(profLuciaUser.getSchedule().getEvents().contains(run));
+    Assert.assertFalse(chatUser.getSchedule().getEvents().contains(run));
+    Assert.assertTrue(profLuciaUser.getSchedule().getEvents().contains(newMorningLec));
+    Assert.assertTrue(chatUser.getSchedule().getEvents().contains(newMorningLec));
+
+  }
+
+  /**
+   * Test that a user can correctly remove an event through the planner system.
    */
   @Test
   public void testRemoveEvent() {
-    emptySchedule.addEvent(this.morningLec);
-    emptySchedule.addEvent(this.afternoonLec);
-    emptySchedule.addEvent(this.sleep);
-    emptySchedule.addEvent(this.officeHours);
-    Assert.assertEquals(4, emptySchedule.getEvents().size());
-
-    // try removing an event
-    emptySchedule.removeEvent(this.morningLec);
-
-    Assert.assertEquals(3, emptySchedule.getEvents().size());
-    Assert.assertFalse(emptySchedule.getEvents().contains(this.morningLec));
-
-    // try removing another event
-    emptySchedule.removeEvent(this.sleep);
-
-    Assert.assertEquals(2, emptySchedule.getEvents().size());
-    Assert.assertFalse(emptySchedule.getEvents().contains(this.sleep));
-  }
-
-  /**
-   * Test that events can be accurately mapped to the days of the week.
-   */
-
-  @Test
-  public void testdayToEventsMapping() {
-    emptySchedule.addEvent(this.morningLec);
-    emptySchedule.addEvent(this.afternoonLec);
-    emptySchedule.addEvent(this.sleep);
-    emptySchedule.addEvent(this.officeHours);
-
-    Assert.assertEquals(List.of(),
-            emptySchedule.dayToEventsMappping().get(Time.Day.SUNDAY));
-    Assert.assertEquals(List.of(this.officeHours),
-            emptySchedule.dayToEventsMappping().get(Time.Day.MONDAY));
-    Assert.assertEquals(List.of(this.morningLec, this.afternoonLec),
-            emptySchedule.dayToEventsMappping().get(Time.Day.TUESDAY));
-    Assert.assertEquals(List.of(), emptySchedule.dayToEventsMappping().get(Time.Day.WEDNESDAY));
-    Assert.assertEquals(List.of(), emptySchedule.dayToEventsMappping().get(Time.Day.THURSDAY));
-    Assert.assertEquals(List.of(this.sleep),
-            emptySchedule.dayToEventsMappping().get(Time.Day.FRIDAY));
-    Assert.assertEquals(List.of(), emptySchedule.dayToEventsMappping().get(Time.Day.SATURDAY));
-  }
-
-  /**
-   * Test that a schedule can be correctly converted to a string.
-   */
-  @Test
-  public void testScheduleToString() {
-    String luciaSched = "Sunday: \n"
-            + "Monday: \n"
-            + "Tuesday: \n"
-            + "name: CS3500 Morning Lecture\n"
-            + "time: Tuesday: 09:50->Tuesday: 11:30\n"
-            + "location: Churchill Hall 101\n"
-            + "online: false\n"
-            + "users: Prof. Lucia\n"
-            + "Student Anon\n"
-            + "Chat          \n"
-            + "name: CS3500 Afternoon Lecture\n"
-            + "time: Tuesday: 13:35->Tuesday: 15:15\n"
-            + "location: Churchill Hall 101\n"
-            + "online: false\n"
-            + "users: Prof. Lucia\n"
-            + "Chat          \n"
-            + "Wednesday: \n"
-            + "Thursday: \n"
-            + "Friday: \n"
-            + "name: Sleep\n"
-            + "time: Friday: 18:00->Sunday: 12:00\n"
-            + "location: Home\n"
-            + "online: true\n"
-            + "users: Prof. Lucia          \n"
-            + "Saturday: \n";
-    emptySchedule.addEvent(this.morningLec);
-    emptySchedule.addEvent(this.afternoonLec);
-    emptySchedule.addEvent(this.sleep);
-
-    Assert.assertEquals(luciaSched, textV.scheduleToString(emptySchedule));
-  }
-
-  /**
-   * Test that a schedule can be correctly converted to its XML format.
-   */
-  @Test
-  public void testScheduleToXML() {
-    String luciaSchedXML = "<event>\n" +
-            "     <name>CS3500 Morning Lecture</name>\n" +
-            "     <time>\n" +
-            "          <start-day>TUESDAY</start-day>\n" +
-            "          <start>0950</start>\n" +
-            "          <end-day>TUESDAY</end-day>\n" +
-            "          <end>1130</end>\n" +
-            "     </time>\n" +
-            "     <location>\n" +
-            "          <online>false</online>\n" +
-            "          <place>Churchill Hall 101</place>\n" +
-            "     </location>\n" +
-            "     <users>\n" +
-            "          <uid>Prof. Lucia</uid>\n" +
-            "          <uid>Student Anon</uid>\n" +
-            "          <uid>Chat</uid>\n" +
-            "     </users>\n" +
-            "</event>\n" +
-            "<event>\n" +
-            "     <name>CS3500 Afternoon Lecture</name>\n" +
-            "     <time>\n" +
-            "          <start-day>TUESDAY</start-day>\n" +
-            "          <start>1335</start>\n" +
-            "          <end-day>TUESDAY</end-day>\n" +
-            "          <end>1515</end>\n" +
-            "     </time>\n" +
-            "     <location>\n" +
-            "          <online>false</online>\n" +
-            "          <place>Churchill Hall 101</place>\n" +
-            "     </location>\n" +
-            "     <users>\n" +
-            "          <uid>Prof. Lucia</uid>\n" +
-            "          <uid>Chat</uid>\n" +
-            "     </users>\n" +
-            "</event>\n" +
-            "<event>\n" +
-            "     <name>Sleep</name>\n" +
-            "     <time>\n" +
-            "          <start-day>FRIDAY</start-day>\n" +
-            "          <start>1800</start>\n" +
-            "          <end-day>SUNDAY</end-day>\n" +
-            "          <end>1200</end>\n" +
-            "     </time>\n" +
-            "     <location>\n" +
-            "          <online>true</online>\n" +
-            "          <place>Home</place>\n" +
-            "     </location>\n" +
-            "     <users>\n" +
-            "          <uid>Prof. Lucia</uid>\n" +
-            "     </users>\n" +
-            "</event>\n";
-
-    emptySchedule.addEvent(this.morningLec);
-    emptySchedule.addEvent(this.afternoonLec);
-    emptySchedule.addEvent(this.sleep);
-
-    Assert.assertEquals(luciaSchedXML, emptySchedule.scheduleToXMLFormat());
-  }
-
-  /**
-   * Tests that the list of events occurring at a given time are correctly identified.
-   */
-  @Test
-  public void testEventsOccurring() {
-    emptySchedule.addEvent(this.morningLec);
-    emptySchedule.addEvent(this.morningLecEndTime);
-    emptySchedule.addEvent(this.afternoonLec);
-    emptySchedule.addEvent(this.sleep);
-
-    // event starting at the given time
-    Assert.assertEquals(this.morningLec,
-            emptySchedule.eventOccurring(
-                    new Time(Time.Day.TUESDAY, 9, 50)));
-
-    // event starting before the given time but ending after
-    Assert.assertEquals(this.morningLec,
-            emptySchedule.eventOccurring(
-                    new Time(Time.Day.TUESDAY, 10, 15)));
-
-    // no event occurring at the time
-    Assert.assertNull(emptySchedule.eventOccurring(
-            new Time(Time.Day.WEDNESDAY, 14, 15)));
-
-    // an event starting at that time and ending at that time, returning first event found
-    Assert.assertEquals(this.morningLec,
-            emptySchedule.eventOccurring(
-                    new Time(Time.Day.TUESDAY, 11, 30)));
-
-    Assert.assertEquals(this.sleep,
-            emptySchedule.eventOccurring(
-                    new Time(Time.Day.SATURDAY, 9, 50)));
-
+    // host removing an event - removed for everyone
+    plannerSystem.removeEventForRelevantUsers(this.morningLec, profLuciaUser);
+    Assert.assertFalse(this.profLuciaUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(this.studentAnonUser.getSchedule().getEvents().contains(this.morningLec));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(this.morningLec));
+    plannerSystem.removeEventForRelevantUsers(this.afternoonLec, profLuciaUser);
+    Assert.assertFalse(this.profLuciaUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertFalse(this.studentAnonUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(this.afternoonLec));
+    plannerSystem.addEventForRelevantUsers(this.afternoonLec);
+    // invitee removing an event - only removed for them
+    plannerSystem.removeEventForRelevantUsers(this.afternoonLec, this.chatUser);
+    Assert.assertTrue(this.profLuciaUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertFalse(this.studentAnonUser.getSchedule().getEvents().contains(this.afternoonLec));
+    Assert.assertFalse(this.chatUser.getSchedule().getEvents().contains(this.afternoonLec));
   }
 }

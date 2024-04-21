@@ -18,7 +18,6 @@ public interface IScheduleView {
   /**
    * Closes the current schedule view.
    */
-
   void closeScheduleView();
 
   /**
@@ -29,6 +28,7 @@ public interface IScheduleView {
    */
 
   void addFeatures(ViewFeatures features);
+
 
   /**
    * Get the user's input for the event name.
@@ -53,7 +53,6 @@ public interface IScheduleView {
    * Observes the user's input for whether the event is online or not.
    * @return whether the event is online
    */
-
   boolean getOnline();
 
   /**

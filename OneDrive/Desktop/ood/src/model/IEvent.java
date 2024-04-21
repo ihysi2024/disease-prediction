@@ -78,9 +78,9 @@ public interface IEvent {
 
   /**
    * Remove specified user from list of invitees to event.
+   *
    * @param userName user to remove
    */
-
   void removeUserFromList(String userName);
 
 

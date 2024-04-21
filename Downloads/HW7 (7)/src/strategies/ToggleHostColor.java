@@ -3,8 +3,8 @@ package strategies;
 import java.awt.*;
 
 
-import model.interfaces.IEvent;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
 import view.DrawEvent;
 import view.IDrawEvent;
 import view.IPlannerView;

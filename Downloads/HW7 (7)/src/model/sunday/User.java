@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
+import model.allInterfaces.IUser;
 
 import static controller.UtilsXML.writeToFile;
 
 /**
  * Represents a user of the planner system. A user has a schedule that they can interact with.
  */
-public class User implements model.interfaces.IUser {
+public class User implements model.allInterfaces.IUser {
   private final String name;
 
-  private final model.interfaces.ISchedule schedule;
+  private final model.allInterfaces.ISchedule schedule;
 
   /**
    * A user of the planner system has the ability to add, modify, and remove events
@@ -31,7 +31,7 @@ public class User implements model.interfaces.IUser {
    * @param name a string representing the user name
    * @param schedule the user's schedule in the planner system
    */
-  public User(String name, model.interfaces.ISchedule schedule) {
+  public User(String name, model.allInterfaces.ISchedule schedule) {
     this.name = Objects.requireNonNull(name);
     this.schedule = schedule;
   }
@@ -81,7 +81,7 @@ public class User implements model.interfaces.IUser {
     // create an empty list of events represented as hashmaps
     List<HashMap<String, String[]>> listEventsMap = new ArrayList<>();
     // create an empty list of events represented as events
-    List<model.interfaces.IEvent> listEvents = new ArrayList<>();
+    List<model.allInterfaces.IEvent> listEvents = new ArrayList<>();
 
     // grab the schedule node and a list of its children nodes representing events
     Node scheduleNode = xmlDoc.getElementsByTagName("schedule").item(0);
@@ -122,7 +122,7 @@ public class User implements model.interfaces.IUser {
     for (HashMap<String, String[]> eventMapping : listEventsMap) {
       listEvents.add(makeEvent(eventMapping));
     }
-    ArrayList<model.interfaces.IEvent> events = new ArrayList<>(listEvents);
+    ArrayList<model.allInterfaces.IEvent> events = new ArrayList<>(listEvents);
     return new User(userName, new Schedule(events));
   }
 
@@ -171,7 +171,7 @@ public class User implements model.interfaces.IUser {
    * @param eventToMake HashMap of attribute name->list of values to convert to events.
    * @return the event corresponding to the HashMap
    */
-  public static model.interfaces.IEvent makeEvent(Map<String, String[]> eventToMake) {
+  public static model.allInterfaces.IEvent makeEvent(Map<String, String[]> eventToMake) {
     try {
       // generate temporary values for the event
       String tempEventName = "";
@@ -224,7 +224,7 @@ public class User implements model.interfaces.IUser {
    * Adds an event to a user's schedule.
    * @param event event to add
    */
-  public void addEventForUser(model.interfaces.IEvent event) {
+  public void addEventForUser(model.allInterfaces.IEvent event) {
     try {
       this.schedule.addEvent(event);
     }

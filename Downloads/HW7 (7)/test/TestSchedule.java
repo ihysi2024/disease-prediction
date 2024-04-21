@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.sunday.Event;
-import model.interfaces.IEvent;
-import model.interfaces.ISchedule;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.ISchedule;
+import model.allInterfaces.IUser;
 import model.sunday.NUPlanner;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import model.sunday.User;

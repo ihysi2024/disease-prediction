@@ -1,7 +1,7 @@
 import java.util.List;
 
 import controller.ViewFeatures;
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.PlannerSystem;
 import view.IScheduleView;
 
 /**

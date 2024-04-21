@@ -6,12 +6,12 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import model.allInterfaces.ITime;
 import model.sunday.Event;
-import model.interfaces.IEvent;
-import model.interfaces.ITime;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
 
-import model.interfaces.PlannerSystem;
+import model.allInterfaces.PlannerSystem;
 import strategies.IToggleStrategy;
 import strategies.ToggleHostColor;
 import view.IEventView;

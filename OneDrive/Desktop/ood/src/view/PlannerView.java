@@ -11,7 +11,7 @@ import model.IUser;
 import model.ReadOnlyPlanner;
 
 /**
- * Represents the view for the planner system.
+ * View of the calendar system through the view.
  */
 
 public class PlannerView extends JFrame implements IPlannerView {
@@ -33,8 +33,8 @@ public class PlannerView extends JFrame implements IPlannerView {
   /**
    * Sets the current user to what is selected in the appropriate button in the schedule view.
    */
-  public void setCurrentUser() {
-    panel.setCurrentUser();
+  public String setCurrentUser() {
+    return panel.setCurrentUser();
   }
 
   /**
@@ -52,10 +52,7 @@ public class PlannerView extends JFrame implements IPlannerView {
     return panel.getCurrentUser();
   }
 
-  /**
-   * Handles the user actions by delegating to the features.
-   * @param features available features
-   */
+
   public void addFeatures(ViewFeatures features) {
     panel.addFeatures(features);
   }
@@ -81,10 +78,6 @@ public class PlannerView extends JFrame implements IPlannerView {
     return panel.addCalendarInfo();
   }
 
-  /**
-   * Add user to the drop down menu.
-   * @param userName user's name to add
-   */
   public void addUserToDropdown(String userName) {
     panel.addUserToDropdown(userName);
   }

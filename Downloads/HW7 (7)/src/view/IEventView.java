@@ -4,8 +4,8 @@ package view;
 import java.util.Map;
 
 import controller.ViewFeatures;
-import model.interfaces.IEvent;
-import model.interfaces.IUser;
+import model.allInterfaces.IEvent;
+import model.allInterfaces.IUser;
 
 /**
  * Frame for the event window.

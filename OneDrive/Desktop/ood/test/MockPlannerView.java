@@ -1,21 +1,19 @@
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
-
 
 import controller.ViewFeatures;
 import model.Event;
 import model.IEvent;
 import model.ITime;
 import model.IUser;
-
 import model.PlannerSystem;
 import model.Schedule;
 import model.Time;
 import model.User;
 import view.IPlannerView;
 import view.IScheduleTextView;
-
 import view.ScheduleTextView;
 
 /**
@@ -46,6 +44,7 @@ public class MockPlannerView implements IPlannerView {
    * @param show true if frame should be shown, false otherwise
    */
   public void display(boolean show) {
+
     out.delete(0, out.length());
     out.append("Displaying the planner view");
   }
@@ -62,10 +61,10 @@ public class MockPlannerView implements IPlannerView {
   /**
    * Sets the current user to what is selected in the appropriate button in the schedule view.
    */
-
-  public void setCurrentUser() {
-    out.delete(0, out.length());
+  public String setCurrentUser() {
     out.append("Setting the current user");
+    out.delete(0, out.length());
+    return "";
   }
 
   /**
@@ -77,9 +76,9 @@ public class MockPlannerView implements IPlannerView {
   public IUser getCurrentUser() {
     out.delete(0, out.length());
     out.append("Getting the current user");
-    return new User("Prof. Lucia", new Schedule(new ArrayList<>(Arrays.asList(new
-                    Event("CS3500 Morning Lecture",
-            new Time( Time.Day.TUESDAY, 9, 50),
+    return new User("Prof. Lucia", new Schedule(new ArrayList<>(
+            Arrays.asList(new Event("CS3500 Morning Lecture",
+            new Time(Time.Day.TUESDAY, 9, 50),
             new Time(Time.Day.TUESDAY, 11, 30),
             false,
             "Churchill Hall 101",
@@ -147,7 +146,7 @@ public class MockPlannerView implements IPlannerView {
    */
 
   public void addFeatures(ViewFeatures features) {
-    // unnecessary for the mock
+    // unused
   }
 
   /**

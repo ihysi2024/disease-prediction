@@ -94,7 +94,7 @@ public interface ViewFeatures {
    * Delegate to the view of the schedule to set who the current user is.
    */
 
-  void setCurrentUser();
+  String setCurrentUser();
 
   /**
    * Determine the event occurring at the given time. Useful for user mouse events in the
@@ -136,7 +136,7 @@ public interface ViewFeatures {
    * Delegate to the view of the schedule to save the calendar info to the planner system.
    */
 
-  void saveCalendars();
+  void saveCalendars(String filePath);
 
   /**
    * Allow the user to schedule an event at the earliest possible time within the constraints
@@ -170,4 +170,9 @@ public interface ViewFeatures {
    */
 
   void displayEventModifyErrors();
+
+  /**
+   * Listen to user input and visualize the game.
+   */
+  void goLaunchPlanner();
 }
