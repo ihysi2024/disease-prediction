@@ -1,4 +1,5 @@
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import view.IScheduleTextView;
 import view.ScheduleTextView;
 
 /**
- * Represents a mock of an event view for testing the controller.
+ * Mock Event View.
  */
 public class MockEventView implements IEventView {
 
@@ -22,8 +23,8 @@ public class MockEventView implements IEventView {
   private StringBuilder out;
 
   /**
-   * Represents how the mock will be displaying information.
-   * @param out where the delegation can be checked.
+   * Constructor for the Mock Event View.
+   * @param out where to output view information.
    */
   public MockEventView(StringBuilder out) {
     this.out = out;
@@ -37,7 +38,7 @@ public class MockEventView implements IEventView {
    * @param features functionality that the user has access to through the event view.
    */
   public void addFeatures(ViewFeatures features) {
-    // unnecessary for the mock.
+    // unused
   }
 
   /**
@@ -128,6 +129,7 @@ public class MockEventView implements IEventView {
     out.append("Opening an event");
   }
 
+
   @Override
   public void displayCreateError() {
     out.delete(0, out.length());
@@ -164,7 +166,7 @@ public class MockEventView implements IEventView {
    * Updates list of users in event view.
    */
   public void updateUserList() {
-    // unnecessary for the mock
+    // unused
   }
 
   @Override
@@ -173,10 +175,14 @@ public class MockEventView implements IEventView {
     out.append("Error in removing an event");
   }
 
+  /**
+   * Displays the error that arises when a user tries to modify an event.
+   *
+   * @param host the user of the event
+   */
   @Override
   public void displayModifyError(IUser host) {
-    out.delete(0, out.length());
-    out.append("Error in modifying an event");
+    // unused
   }
 
 }

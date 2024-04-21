@@ -1,7 +1,9 @@
 import java.util.List;
 
 import controller.ViewFeatures;
+
 import model.PlannerSystem;
+
 import view.IScheduleView;
 
 /**
@@ -14,11 +16,10 @@ public class MockScheduleView implements IScheduleView {
   private StringBuilder out;
 
   /**
-   * Represents the mock view of a schedule panel.
-   * @param out where the user can read the mock's outputs.
-   * @param model what planner system the mock is based on.
+   * Represents a mock schedule view.
+   * @param out where the mock is outputting information.
+   * @param model the model the view takes in.
    */
-
   public MockScheduleView(StringBuilder out, PlannerSystem model) {
     this.out = out;
   }
@@ -52,7 +53,7 @@ public class MockScheduleView implements IScheduleView {
 
   @Override
   public void addFeatures(ViewFeatures features) {
-    // unnecessary for the mock
+    // unused
   }
 
   /**

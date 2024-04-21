@@ -98,9 +98,9 @@ public class Event implements IEvent {
 
   /**
    * Remove specified user from list of invitees to event.
+   *
    * @param userName user to remove
    */
-
   @Override
   public void removeUserFromList(String userName) {
     if (this.users.size() > 1) { // preserving invariant by ensuring user list has at least 2 people

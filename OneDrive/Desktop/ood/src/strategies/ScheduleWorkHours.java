@@ -54,8 +54,8 @@ public class ScheduleWorkHours implements IScheduleStrategy {
     for (int eventIdx = 0; eventIdx < orderedEvents.size() - 1; eventIdx++) {
       durationMin = 0;
 
-      durationMin = calculateDuration(orderedEvents.get(eventIdx).
-                      getEndTime().getDate().getDayIdx(),
+      durationMin = calculateDuration(orderedEvents.get(eventIdx).getEndTime().
+                      getDate().getDayIdx(),
               orderedEvents.get(eventIdx + 1).getStartTime().getDate().getDayIdx(),
               orderedEvents.get(eventIdx).getEndTime().getHours(),
               orderedEvents.get(eventIdx + 1).getStartTime().getHours(),
@@ -114,8 +114,8 @@ public class ScheduleWorkHours implements IScheduleStrategy {
         }
         // if the chunk of free time is equal to or more than the desired
         // duration for the proposed event
-        this.findTimeForEvent(duration, timeBetweenEvents, startTime,
-                hours, newHours, date, newDay, newMin, finalTimes);
+        this.findTimeForEvent(duration, timeBetweenEvents, startTime, hours, newHours,
+                date, newDay, newMin, finalTimes);
       }
     }
     return finalTimes;
@@ -124,8 +124,8 @@ public class ScheduleWorkHours implements IScheduleStrategy {
   /**
    * Determine the right start and end time for an event of that duration.
    * @param duration amount of time the event lasts
-   * @param timeBetweenEvents mapping of when events end and how much free time
-   *                          there is after each one.
+   * @param timeBetweenEvents mapping of when events end and how much free time there
+   *                         is after each one.
    * @param startTime when the week time constraints start
    * @param hours number of hours to add to any event's end time
    * @param newHours number of final hours to add to this event's end time

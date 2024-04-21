@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+
 /**
  * Main interface for the planner system. Used to interact with the users' schedules.
  */
@@ -12,10 +13,6 @@ public interface PlannerSystem extends ReadOnlyPlanner {
    */
   void exportScheduleAsXML(String filePath);
 
-  /**
-   * Observes the users in the planner system.
-   * @return a list of users.
-   */
   List<IUser> getUsers();
 
   /**

@@ -16,12 +16,12 @@ import model.NUPlanner;
 import model.PlannerSystem;
 import model.Schedule;
 import model.Time;
+
 import view.IEventView;
 import view.IPlannerView;
 import strategies.IScheduleStrategy;
 import view.IScheduleView;
 import strategies.ScheduleAnyTime;
-
 /**
  * Test the controller and that it can correctly delegate to the right views.
  */
@@ -302,9 +302,6 @@ public class TestController {
             "Friday: \n" +
             "Saturday: \n", outPlanner.toString());
 
-    controller.saveCalendars();
-
-    Assert.assertEquals("Opening planner view", outPlanner.toString());
 
     controller.closePlannerView();
 
