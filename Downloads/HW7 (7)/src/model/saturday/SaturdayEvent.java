@@ -36,6 +36,8 @@ public class SaturdayEvent extends Event implements IEvent {
     return 0;
   }
 
+
+
   // ADAPT OVERLAPPING
   @Override
   public boolean overlappingEvents(IEvent otherEvent) {
