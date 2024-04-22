@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 
 import javax.swing.*;
@@ -9,6 +9,7 @@ import model.allInterfaces.IEvent;
 import model.allInterfaces.ITime;
 import model.allInterfaces.IUser;
 import model.allInterfaces.ReadOnlyPlanner;
+import view.allInterfaces.IPlannerView;
 
 /**
  * Represents the view for the planner system.

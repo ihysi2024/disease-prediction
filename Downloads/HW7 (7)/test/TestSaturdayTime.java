@@ -9,8 +9,8 @@ import model.sunday.NUPlanner;
 import model.allInterfaces.PlannerSystem;
 import model.saturday.SaturdayTime;
 import model.sunday.Time;
-import view.IScheduleTextView;
-import view.ScheduleTextView;
+import view.allInterfaces.IScheduleTextView;
+import view.sunday.ScheduleTextView;
 
 public class TestSaturdayTime {
 

@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,6 +32,8 @@ import model.allInterfaces.IUser;
 import model.allInterfaces.ReadOnlyPlanner;
 import model.sunday.Schedule;
 import model.sunday.User;
+import view.allInterfaces.IDrawEvent;
+import view.allInterfaces.IPlannerView;
 
 import static model.sunday.Time.indexToTime;
 

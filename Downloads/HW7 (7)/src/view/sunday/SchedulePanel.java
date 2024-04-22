@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -17,6 +17,8 @@ import controller.ViewFeatures;
 import model.allInterfaces.IUser;
 
 import model.allInterfaces.ReadOnlyPlanner;
+import view.allInterfaces.IScheduleTextView;
+import view.allInterfaces.IScheduleView;
 
 /**
  * Represents the panel for an event that can be automatically

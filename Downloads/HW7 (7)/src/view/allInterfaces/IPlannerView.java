@@ -1,9 +1,10 @@
-package view;
+package view.allInterfaces;
 
 import controller.ViewFeatures;
 import model.allInterfaces.IEvent;
 import model.allInterfaces.ITime;
 import model.allInterfaces.IUser;
+import view.sunday.PlannerPanel;
 
 /**
  * Represents the interface for a planner view to be implemented through a panel

@@ -14,11 +14,11 @@ import model.allInterfaces.IUser;
 import model.allInterfaces.PlannerSystem;
 import strategies.IToggleStrategy;
 import strategies.ToggleHostColor;
-import view.IEventView;
+import view.allInterfaces.IEventView;
 import strategies.IScheduleStrategy;
-import view.IScheduleTextView;
-import view.IPlannerView;
-import view.IScheduleView;
+import view.allInterfaces.IScheduleTextView;
+import view.allInterfaces.IPlannerView;
+import view.allInterfaces.IScheduleView;
 
 /**
  * Controller to delegate client-based decisions to the event view, planner view, and

@@ -5,9 +5,9 @@ import java.awt.*;
 
 import model.allInterfaces.IEvent;
 import model.allInterfaces.IUser;
-import view.DrawEvent;
-import view.IDrawEvent;
-import view.IPlannerView;
+import view.sunday.DrawEvent;
+import view.allInterfaces.IDrawEvent;
+import view.allInterfaces.IPlannerView;
 
 public class ToggleHostColor implements IToggleStrategy {
 

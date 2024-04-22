@@ -13,11 +13,11 @@ import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import model.sunday.User;
-import view.IPlannerView;
-import view.IScheduleTextView;
+import view.allInterfaces.IPlannerView;
+import view.allInterfaces.IScheduleTextView;
 
-import view.PlannerPanel;
-import view.ScheduleTextView;
+import view.sunday.PlannerPanel;
+import view.sunday.ScheduleTextView;
 
 /**
  * Represents the mock planner for a planner view to be implemented through a panel

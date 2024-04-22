@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.awt.*;
 import javax.swing.*;
@@ -6,6 +6,7 @@ import javax.swing.*;
 import model.allInterfaces.IEvent;
 import model.allInterfaces.ITime;
 import model.sunday.Time;
+import view.allInterfaces.IDrawEvent;
 
 import static model.sunday.Time.indexToTime;
 
@@ -20,7 +21,6 @@ public class DrawEvent implements IDrawEvent {
    * @param event IEvent to be painted
    */
   public void paintEvent(Graphics g, IEvent event, JPanel host, Color color) {
-    System.out.println("PAINTING EVENT");
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(color);
 
@@ -114,7 +114,7 @@ public class DrawEvent implements IDrawEvent {
    * @param time Time to use for calculations
    * @return the decimal value representing the time's position
    */
-  private double minLoc(ITime time) {
+  public double minLoc(ITime time) {
     int timePos = time.minutesSinceMidnight();
     return timePos / (60.0 * 24.0);
   }

@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -28,6 +28,9 @@ import model.sunday.NUPlanner;
 import model.allInterfaces.PlannerSystem;
 import model.allInterfaces.ReadOnlyPlanner;
 import model.sunday.Time;
+import view.allInterfaces.IEventView;
+import view.allInterfaces.IScheduleTextView;
+import view.sunday.ScheduleTextView;
 
 import static model.sunday.User.makeEvent;
 

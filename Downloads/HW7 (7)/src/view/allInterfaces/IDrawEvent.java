@@ -1,4 +1,4 @@
-package view;
+package view.allInterfaces;
 
 import java.awt.*;
 
@@ -14,4 +14,6 @@ public interface IDrawEvent {
   void paintFullDay(Graphics g, Color color, int dayWidth, ITime startDay, ITime endDay, JPanel host);
 
   void paintEvent(Graphics g, IEvent event, JPanel host, Color color);
+
+  double minLoc(ITime time);
 }

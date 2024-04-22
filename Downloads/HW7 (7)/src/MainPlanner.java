@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import controller.Controller;
+import model.saturday.SaturdayNUPlanner;
 import model.sunday.Event;
 import model.allInterfaces.IEvent;
 import model.sunday.NUPlanner;
@@ -10,15 +11,15 @@ import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import model.sunday.User;
-import view.EventView;
-import view.IEventView;
+import view.sunday.EventView;
+import view.allInterfaces.IEventView;
 import strategies.IScheduleStrategy;
-import view.IScheduleTextView;
-import view.IPlannerView;
-import view.IScheduleView;
-import view.ScheduleTextView;
-import view.PlannerView;
-import view.ScheduleView;
+import view.allInterfaces.IScheduleTextView;
+import view.allInterfaces.IPlannerView;
+import view.allInterfaces.IScheduleView;
+import view.sunday.ScheduleTextView;
+import view.sunday.PlannerView;
+import view.sunday.ScheduleView;
 import strategies.ScheduleAnyTime;
 import strategies.ScheduleWorkHours;
 
@@ -33,8 +34,7 @@ public class MainPlanner {
    */
   public static void main(String[] args) {
     Controller controller;
-
-    PlannerSystem model = new NUPlanner("None"); // Feel free to customize this as desired
+    PlannerSystem model;
 
     IEvent morningSnack = new Event("snack",
             new Time(Time.Day.TUESDAY, 10, 30),
@@ -64,14 +64,26 @@ public class MainPlanner {
             "home",
             Arrays.asList("Me", "Prof. Lucia"));
 
-    model.addUser(new User("Prof. Lucia",
-            new Schedule(new ArrayList<>(List.of(morningSnack, officeHours, sleep, movie)))));
-    model.addUser(new User("Me", new Schedule(new ArrayList<>(List.of(officeHours, movie)))));
+    if (args[0].equals("saturday")) {
+      model = new SaturdayNUPlanner(); // Feel free to customize this as desired
+      model.addUser(new User("Prof. Lucia",
+              new Schedule(new ArrayList<>(List.of(morningSnack, officeHours, sleep, movie)))));
+      model.addUser(new User("Me", new Schedule(new ArrayList<>(List.of(officeHours, movie)))));
+    }
+    else if (args[0].equals("sunday")) {
+      model = new NUPlanner("None"); // Feel free to customize this as desired
+      model.addUser(new User("Prof. Lucia",
+              new Schedule(new ArrayList<>(List.of(morningSnack, officeHours, sleep, movie)))));
+      model.addUser(new User("Me", new Schedule(new ArrayList<>(List.of(officeHours, movie)))));
+    }
 
-    if (args[0].equals("anytime")) {
+
+
+
+    if (args[1].equals("anytime")) {
       IScheduleStrategy anyTime = new ScheduleAnyTime();
       controller = new Controller(model, anyTime);
-    } else if (args[0].equals("workhours")) {
+    } else if (args[1].equals("workhours")) {
       IScheduleStrategy workHours = new ScheduleWorkHours();
       controller = new Controller(model, workHours);
     } else {

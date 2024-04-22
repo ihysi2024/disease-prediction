@@ -2,7 +2,7 @@ import java.util.List;
 
 import controller.ViewFeatures;
 import model.allInterfaces.PlannerSystem;
-import view.IScheduleView;
+import view.allInterfaces.IScheduleView;
 
 /**
  * Represents the mock view that allows an event to be scheduled as early as possible given

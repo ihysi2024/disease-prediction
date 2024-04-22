@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import controller.ViewFeatures;
 
 import model.allInterfaces.ReadOnlyPlanner;
+import view.allInterfaces.IScheduleView;
 
 /**
  * Represents the view of the event panel that allows the user to automatically.

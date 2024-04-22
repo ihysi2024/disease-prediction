@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +10,7 @@ import model.allInterfaces.ITime;
 import model.allInterfaces.IUser;
 import model.allInterfaces.PlannerSystem;
 import model.sunday.Time;
+import view.allInterfaces.IScheduleTextView;
 
 /**
  * Represents a textual view of the planner system.

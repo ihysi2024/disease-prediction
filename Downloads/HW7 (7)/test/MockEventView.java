@@ -9,9 +9,9 @@ import model.allInterfaces.IUser;
 import model.sunday.NUPlanner;
 import model.allInterfaces.PlannerSystem;
 import model.sunday.Time;
-import view.IEventView;
-import view.IScheduleTextView;
-import view.ScheduleTextView;
+import view.allInterfaces.IEventView;
+import view.allInterfaces.IScheduleTextView;
+import view.sunday.ScheduleTextView;
 
 /**
  * Represents a mock of an event view for testing the controller.

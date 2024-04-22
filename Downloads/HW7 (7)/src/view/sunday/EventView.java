@@ -1,4 +1,4 @@
-package view;
+package view.sunday;
 
 import java.util.Map;
 
@@ -10,6 +10,7 @@ import model.allInterfaces.IEvent;
 
 import model.allInterfaces.IUser;
 import model.allInterfaces.ReadOnlyPlanner;
+import view.allInterfaces.IEventView;
 
 /**
  * Frame for the event pop-out window, where users will be able to see the functionality

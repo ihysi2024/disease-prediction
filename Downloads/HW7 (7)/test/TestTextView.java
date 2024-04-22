@@ -16,8 +16,8 @@ import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import model.sunday.User;
-import view.ScheduleTextView;
-import view.IScheduleTextView;
+import view.sunday.ScheduleTextView;
+import view.allInterfaces.IScheduleTextView;
 
 
 /**

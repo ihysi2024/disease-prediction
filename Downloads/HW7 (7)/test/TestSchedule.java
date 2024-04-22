@@ -15,8 +15,8 @@ import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
 import model.sunday.User;
-import view.IScheduleTextView;
-import view.ScheduleTextView;
+import view.allInterfaces.IScheduleTextView;
+import view.sunday.ScheduleTextView;
 
 /**
  * Class to test functionality of Schedule class.

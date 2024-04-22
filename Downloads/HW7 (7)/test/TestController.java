@@ -16,10 +16,10 @@ import model.sunday.NUPlanner;
 import model.allInterfaces.PlannerSystem;
 import model.sunday.Schedule;
 import model.sunday.Time;
-import view.IEventView;
-import view.IPlannerView;
+import view.allInterfaces.IEventView;
+import view.allInterfaces.IPlannerView;
 import strategies.IScheduleStrategy;
-import view.IScheduleView;
+import view.allInterfaces.IScheduleView;
 import strategies.ScheduleAnyTime;
 
 /**

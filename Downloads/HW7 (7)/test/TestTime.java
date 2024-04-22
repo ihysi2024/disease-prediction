@@ -8,8 +8,8 @@ import model.allInterfaces.ITime;
 import model.sunday.NUPlanner;
 import model.allInterfaces.PlannerSystem;
 import model.sunday.Time;
-import view.IScheduleTextView;
-import view.ScheduleTextView;
+import view.allInterfaces.IScheduleTextView;
+import view.sunday.ScheduleTextView;
 
 /**
  * Class to test functionality of Time class.
