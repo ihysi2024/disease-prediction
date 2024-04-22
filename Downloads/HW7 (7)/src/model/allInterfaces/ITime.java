@@ -42,7 +42,6 @@ public interface ITime {
    */
   int compareTimes(ITime refTime);
 
-
   /**
    * Calculates the # of minutes since midnight that have passed prior to event beginning.
    * If event starts at midnight, returns 0.

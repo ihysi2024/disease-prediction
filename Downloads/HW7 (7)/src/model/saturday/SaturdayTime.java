@@ -25,10 +25,14 @@ public class SaturdayTime extends Time implements ITime {
     return super.getDate();
   }
 
-  // iTime could be a saturday or a sunday time
-  // if iTime is a saturday time, then can
-  // assuming that if using saturday model, will always be comparing saturday times
-  // just change the day index for each
+  /**
+   * compare two times and determine what their relation is to each other.
+   *
+   * @param refTime other time to compare to
+   * @return 0 if they are the same time
+   * -1 if this time comes before that time
+   * 1 if this time comes after that time
+   */
   @Override
   public int compareTimes(ITime iTime) {
     int currDayIdx = this.getDate().getDayIdx();
@@ -46,25 +50,9 @@ public class SaturdayTime extends Time implements ITime {
     else {
       otherDayIdx++;
     }
-
-    if (currDayIdx < otherDayIdx) {
-      return -1;
-    }
-    else if (currDayIdx > otherDayIdx) {
-      return 1;
-    }
-    else { // same day
-      if (this.getHours() < iTime.getHours()) {
-        return -1;
-      }
-      else if (this.getHours() > iTime.getHours()) {
-        return 1;
-      }
-      else { // same day + hour, so comparing minutes
-        return Integer.compare(this.getMinutes(), iTime.getMinutes());
-      }
-    }
-
+    ITime newThisTime = indexToTime(currDayIdx, this.minutesSinceMidnight());
+    ITime newOtherTime = indexToTime(otherDayIdx, iTime.minutesSinceMidnight());
+    return newThisTime.compareTimes(newOtherTime);
   }
 
   @Override

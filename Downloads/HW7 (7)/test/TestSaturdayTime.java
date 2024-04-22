@@ -23,6 +23,8 @@ public class TestSaturdayTime {
   private ITime satOnePMTwo;
   private ITime sunThreePM;
   private ITime monFiveAM;
+  private ITime monFiveAMTwo;
+
   private IScheduleTextView textV;
 
   @Before
@@ -36,15 +38,18 @@ public class TestSaturdayTime {
     this.thursNoon = new SaturdayTime(Time.Day.THURSDAY, 12, 0);
     this.wedFiveThirtyPM = new SaturdayTime(Time.Day.WEDNESDAY, 17, 30);
     this.wedFiveThirtyOnePM = new SaturdayTime(Time.Day.WEDNESDAY, 17, 31);
-    this.satOnePMTwo = new SaturdayTime(Time.Day.SATURDAY, 13, 0);
+    this.satOnePMTwo = new Time(Time.Day.SATURDAY, 13, 0);
     this.sunThreePM = new SaturdayTime(Time.Day.SUNDAY, 15, 0);
     this.monFiveAM = new SaturdayTime(Time.Day.MONDAY, 5, 0);
+    this.monFiveAMTwo = new Time(Time.Day.MONDAY, 5, 0);
+
   }
 
   @Test
   public void testCompareTimes() {
     Assert.assertEquals(-1, satOnePM.compareTimes(sunThreePM)); // sat first day of week
     Assert.assertEquals(1, monFiveAM.compareTimes(satOnePM)); // mon now after sat
+    Assert.assertEquals(-1, satOnePM.compareTimes(monFiveAMTwo)); // mon now after sat
     Assert.assertEquals(0, satOnePM.compareTimes(satOnePM));
     Assert.assertEquals(0, satOnePMTwo.compareTimes(satOnePM));
     Assert.assertEquals(-1, tues10AM.compareTimes(tues10PM));
