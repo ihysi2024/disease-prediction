@@ -136,6 +136,7 @@ public class Time implements model.allInterfaces.ITime {
    * @throws IllegalArgumentException if the given day and/or time values are invalid
    *         ex. day does not exist, or time isn't in proper format
    */
+  /*
   public static Time stringToTime(String day, String time) {
     List<String> daysofTheWeek =
             List.of("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday");
@@ -166,6 +167,8 @@ public class Time implements model.allInterfaces.ITime {
       throw new IllegalArgumentException("invalid hours and/or minutes");
     }
   }
+
+   */
 
 
   /**

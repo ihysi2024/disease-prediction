@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import model.allInterfaces.IEvent;
 import model.allInterfaces.ISchedule;
+import model.allInterfaces.ITime;
 
 /**
  * Represents a schedule in the planner system.

@@ -12,6 +12,7 @@ import java.util.Objects;
 
 import model.allInterfaces.IEvent;
 import model.allInterfaces.ISchedule;
+import model.allInterfaces.ITime;
 import model.allInterfaces.IUser;
 
 import static controller.UtilsXML.writeToFile;
@@ -194,8 +195,8 @@ public class User implements model.allInterfaces.IUser {
 
         if (key.equals("time")) {
           System.out.println(eventToMake.get(key)[1]);
-          tempStartTime = model.sunday.Time.stringToTime(eventToMake.get(key)[0], eventToMake.get(key)[1]);
-          tempEndTime = Time.stringToTime(eventToMake.get(key)[2], eventToMake.get(key)[3]);
+          tempStartTime = ITime.stringToTime(eventToMake.get(key)[0], eventToMake.get(key)[1]);
+          tempEndTime = ITime.stringToTime(eventToMake.get(key)[2], eventToMake.get(key)[3]);
         }
         if (key.equals("location")) {
           online = (eventToMake.get(key)[0].toLowerCase().equals("true"));

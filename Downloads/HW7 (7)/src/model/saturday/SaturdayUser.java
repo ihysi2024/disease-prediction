@@ -1,18 +1,12 @@
 package model.saturday;
 
 import model.allInterfaces.IEvent;
-import model.allInterfaces.ISchedule;
 import model.allInterfaces.IUser;
+import model.allInterfaces.ISchedule;
 
-public class SaturdayUser implements IUser {
-  @Override
-  public String getName() {
-    return null;
-  }
-
-  @Override
-  public ISchedule getSchedule() {
-    return null;
+public class SaturdayUser extends model.sunday.User implements model.allInterfaces.IUser {
+  public SaturdayUser(String name, model.allInterfaces.ISchedule schedule) {
+    super(name, schedule);
   }
 
   @Override

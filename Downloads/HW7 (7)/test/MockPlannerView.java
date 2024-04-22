@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 
 import controller.ViewFeatures;
+import model.allInterfaces.ITime;
 import model.sunday.Event;
 import model.allInterfaces.IEvent;
 import model.allInterfaces.IUser;
@@ -15,6 +16,7 @@ import model.sunday.User;
 import view.IPlannerView;
 import view.IScheduleTextView;
 
+import view.PlannerPanel;
 import view.ScheduleTextView;
 
 /**
@@ -200,5 +202,15 @@ public class MockPlannerView implements IPlannerView {
             new ArrayList<>(Arrays.asList("Prof. Lucia",
                     "Student Anon",
                     "Chat")));
+  }
+
+  @Override
+  public PlannerPanel getPanel() {
+    return null;
+  }
+
+  @Override
+  public void addMenus() {
+
   }
 }

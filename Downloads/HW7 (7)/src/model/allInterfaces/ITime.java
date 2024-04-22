@@ -1,5 +1,9 @@
 package model.allInterfaces;
 
+import java.util.List;
+
+import model.sunday.Time;
+
 /**
  * Represents a time, which includes a day of the week and the time up to minute granularity.
  * The day of the week is relative to this current week and is not associated with a specific
@@ -46,5 +50,36 @@ public interface ITime {
    * @return # of minutes since midnight until beginning of event
    */
   int minutesSinceMidnight();
+
+  static Time stringToTime(String day, String time) {
+    List<String> daysofTheWeek =
+            List.of("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday");
+    Time.Day tempDay = Time.Day.SATURDAY;
+    int tempHours = 0;
+    int tempMin = 0;
+    // throw exception if given day isn't in Day Enum
+    if (!daysofTheWeek.contains(day.toLowerCase())) {
+      throw new IllegalArgumentException("invalid day");
+    }
+
+    for (Time.Day constDay : Time.Day.values()) {
+      if (day.equalsIgnoreCase(constDay.getDayString())) {
+        tempDay = constDay;
+      }
+    }
+    if (time.length() != 4) {
+      throw new IllegalArgumentException("invalid time input: " + time);
+    }
+
+    tempHours = Integer.parseInt(time.charAt(0) + String.valueOf(time.charAt(1)));
+    tempMin = Integer.parseInt(time.charAt(2) + String.valueOf(time.charAt(3)));
+
+    try {
+      return new Time(tempDay, tempHours, tempMin);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("invalid hours and/or minutes");
+    }
+  }
 }
 
